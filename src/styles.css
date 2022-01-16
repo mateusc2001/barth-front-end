@@ -1,0 +1,58 @@
+/* You can add global styles to this file, and also import other style files */
+* {
+  box-sizing: border-box;
+}
+body {
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+    transition: .3s;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    transition: .3s;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(136, 136, 136, 0.466);
+    transition: .3s;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #888;
+    transition: .3s;
+}
+
+::-webkit-scrollbar {}
+
+::-webkit-scrollbar-button {}
+
+::-webkit-scrollbar-track {}
+
+::-webkit-scrollbar-track-piece {}
+
+::-webkit-scrollbar-thumb {
+    height: 5px;
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+}
+
+::-webkit-scrollbar-corner {}
+
+::-webkit-resizer {}

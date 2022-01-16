@@ -1,0 +1,70 @@
+<div class="main-container-table-contas-pagar">
+  <div class="container-pagination-table-contas-pagar">
+    <h2>Contas a pagar</h2>
+
+    <mat-form-field appearance="standard">
+      <mat-label>Filter</mat-label>
+      <input matInput (keyup)="applyFiltera($event)" placeholder="Ex. ium" #input>
+    </mat-form-field>
+    <table mat-table [dataSource]="dataSource" class="table-contas-a-pagar">
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef> # </th>
+        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="dataCriacao">
+        <th mat-header-cell *matHeaderCellDef> Data </th>
+        <td mat-cell *matCellDef="let element"> {{element.dataFinal | date }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="descricao">
+        <th mat-header-cell *matHeaderCellDef> Descrição </th>
+        <td mat-cell *matCellDef="let element" class="td-data-descricao"
+          [class.color-red]="validarStringVazia(element.descricao)">
+          {{getDocumento(element.descricao)}} </td>
+      </ng-container>
+
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="valor">
+        <th mat-header-cell *matHeaderCellDef> Valor </th>
+        <td mat-cell *matCellDef="let element" [class.color-red]="valorNegativo(element.valor)"
+          [class.color-green]="valorPositivo(element.valor)"> {{element.valor | currency : 'BRL'}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef> Status </th>
+        <td mat-cell *matCellDef="let element"> {{element.finalizado ? 'finalizado' : 'Pendente'}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="acoes">
+        <th mat-header-cell *matHeaderCellDef="let element" class="aline-items-center">
+          <button mat-icon-button type="button" (click)="openDialogNovaConta(element)">
+            <mat-icon class="color-red">add</mat-icon>
+          </button>
+        </th>
+        <td mat-cell *matCellDef="let element" class="aline-items-center">
+          <button mat-icon-button type="button" [disabled]="element.finalizado"
+            (click)="openDialogConfirmarFinalizacao(element.id)">
+            <mat-icon class="color-red">done</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <mat-paginator [length]="pageOptionsContasVariaveis.length" [pageSize]="pageOptionsContasVariaveis.pageSize"
+      [pageSizeOptions]="[5, 10, 20]" (page)="test($event)" showFirstLastButtons></mat-paginator>
+  </div>
+
+  <mat-divider style="width: 95%; margin: 20px 0;"></mat-divider>
+
+  <div class="container-app-tabela-contas-fixas">
+    <app-tabela-contas-fixas [contas]="getContasFixas()" [pageOptions]="pageOptionsContasFixas"
+      (updatePageOptionsContasFixas)="updatePageOptionsContasFixas($event)"></app-tabela-contas-fixas>
+  </div>
+</div>

@@ -1,0 +1,37 @@
+<h1 mat-dialog-title>Cadastro de cliente</h1>
+<div mat-dialog-content class="container-form-cadastro-cliente" [formGroup]="formGroupCadastroCliente">
+  <div class="container-input-image">
+    <div class='input-wrapper'>
+      <div style="display: flex; justify-content: space-between; align-items: center; transition: .5s;">
+
+        <label for='input-file'>
+          <span>Selecionar um arquivo</span>
+        </label>
+        <button mat-button style="border-radius: 100px;" *ngIf="url != initImage" (click)="url = initImage">
+          <mat-icon>clear</mat-icon>
+        </button>
+      </div>
+
+      <input id='input-file' type='file' value='' (change)="onSelectFile($event)"/>
+      <span id='file-name'></span>
+    </div>
+    <img src="{{url}}" class="new-img">
+  </div>
+
+  <mat-form-field class="form-field">
+    <mat-label>Nome</mat-label>
+    <input matInput formControlName="txtNomeCompleto">
+  </mat-form-field>
+
+  <mat-form-field class="form-field">
+    <mat-label>Usuário</mat-label>
+    <input matInput formControlName="txtUsuario">
+  </mat-form-field>
+
+</div>
+<div mat-dialog-actions class="dialog-actions">
+  <button mat-button [mat-dialog-close]="null">Cancelar</button>
+  <button mat-button color="primary" [disabled]="desabilitarBtnSalvar()" [mat-dialog-close]="emitOnClose()"
+          cdkFocusInitial>Salvar
+  </button>
+</div>

@@ -1,0 +1,68 @@
+.example-container {
+    width: 100%;
+    height: 100%;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+.example-sidenav-content {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.example-sidenav {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 20px;
+}
+
+.app-component-header {
+    height: 7%;
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.example-sidenav {
+    min-width: 15%;
+}
+
+.itens-menu-opcoes {
+    cursor: pointer;
+  margin: 10px 0;
+}
+
+.container-circle-image {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.image-user-side-nav {
+    width: 80px;
+    height: 80px;
+    border-radius: 100px;
+    background-image: url('https://media.istockphoto.com/photos/smiling-businesswoman-looking-at-camera-webcam-make-conference-call-picture-id1129638608?k=6&m=1129638608&s=612x612&w=0&h=8OhKQCq_elLsW_PAWA4n8pzQy3mlkf5a_ztp2Nbv8Y8=');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.container-circle-image .name-user {
+    font-size: 18px;
+    font-weight: lighter;
+    margin: 10px 0;
+}
+
+.example-spacer {
+    flex: 1 1 auto;
+}
+
+.menu-top {
+    width: 100%;
+}

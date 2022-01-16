@@ -1,0 +1,63 @@
+<!-- <div class="form-group">
+    <input type="file" (change)="uploadFile($event)">
+</div> -->
+
+
+<section class="main-container-drag-and-drop">
+    <div class="container-block-files">
+        <div draggable="true" ngClass="{{dragAreaClass}}">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <div class="container-text-drag-and-drop">
+                        <mat-icon class="icon-upload">
+                            cloud_upload
+                        </mat-icon>
+                        <span class="title-drag-and-drop">Arraste e solte o arquivo aqui</span>
+
+                        <strong style="font-size: 20px;">ou</strong>
+                        <button mat-stroked-button type="button" color="primary" (click)="file.click()"
+                            class="login-button">
+                            <!-- <a href="javascript:void(0)" class="link-procurar-arquivo" (click)="file.click()">
+                                
+                            </a> -->
+                            Procurar arquivo
+                        </button>
+                    </div>
+
+                    <input type="file" #file [multiple]="false" (change)="onFileChange($event)" style="display:none" />
+                </div>
+            </div>
+        </div>
+        <mat-list class="mat-list-files-to-upload">
+            <div *ngFor="let file of files; let i = index">
+                <div class="item-file-upload">
+                    <mat-list-item>
+                        <mat-icon mat-list-icon>folder</mat-icon>
+                        <div mat-line>{{file.name}}</div>
+                        <div mat-line> {{getDateFromTimesTamp(file.lastModified) | date:'short'}} </div>
+                    </mat-list-item>
+                    <form class="form-select-banco-extrato">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Selecione o banco</mat-label>
+                            <mat-select [(ngModel)]="file.banco" name="food">
+                                <mat-option *ngFor="let food of foods" [value]="food.value">
+                                    {{food.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </form>
+                    <button mat-icon-button [disabled]="!file.banco" color="primary" (click)="fazerUploadEspecifyFile(file, i)" class="btn-send-file">
+                        <mat-icon *ngIf="!file.loading" mat-list-icon class="icone-upload-arquivo-especifico">upload</mat-icon>
+                        <mat-spinner *ngIf="file.loading" diameter="25"></mat-spinner>
+                    </button>
+                    <button mat-icon-button color="warn" (click)="removeFileToUpload(i)">
+                        <mat-icon mat-list-icon class="icone-upload-arquivo-especifico">delete</mat-icon>
+                    </button>
+                </div>
+
+                <mat-divider></mat-divider>
+            </div>
+
+        </mat-list>
+    </div>
+</section>

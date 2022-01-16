@@ -1,0 +1,72 @@
+.main-container-login-component {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    background-color: #3f51b5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container-form-login-component {
+    max-width: 400px;
+    max-height: 600px;
+    width: 50%;
+    background-color: white;
+    border-radius: 5px;
+    padding: 20px;
+}
+
+.form-login-component {
+    width: 100%;
+    height: 100%;
+}
+
+.example-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.example-form mat-form-field {
+    width: 100%;
+}
+
+.login-button {
+    width: 100%;
+}
+
+.mensagem-erro {
+    color: red;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.spinner-loaing {
+    border: 2px solid rgb(165, 165, 165);
+    border-right-color: transparent;
+    width: 15px;
+    height: 15px;
+    border-radius: 100%;
+    margin: 0 15px;
+    transition: .4s;
+    animation: loading 1s infinite;
+}
+
+@keyframes loading {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.container-itens-btn-login {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

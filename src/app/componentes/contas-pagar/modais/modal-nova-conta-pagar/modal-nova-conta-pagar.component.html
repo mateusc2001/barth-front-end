@@ -1,0 +1,41 @@
+<div>
+  <h1 mat-dialog-title>Conta para pagar</h1>
+  <div mat-dialog-content class="container-form-cadastro-cliente" [formGroup]="formGroupCadastroCliente">
+
+    <mat-form-field class="form-field">
+      <mat-label>Valor</mat-label>
+      <input matInput formControlName="txtValor" currencyMask
+        [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" class="text-align-center">
+    </mat-form-field>
+
+    <mat-form-field class="form-field">
+      <mat-label>Descrição</mat-label>
+      <input matInput formControlName="txtDescricao">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" style="width: 100%;">
+      <mat-label>Selecione a data de vencimento</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="txtDataFinal">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field class="select-destinatario-origem origem" appearance="fill">
+      <mat-label>Selecione o destinatário</mat-label>
+      <mat-select formControlName="txtIdUsuario" name="destinos">
+        <mat-option *ngFor="let destino of destinos" [value]="destino.id">
+          {{destino.nomeCompleto}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <section class="example-section">
+      <mat-checkbox class="example-margin" name="contaFixa" formControlName="contaFixa">Conta fixa</mat-checkbox>
+    </section>
+
+  </div>
+  <div mat-dialog-actions class="dialog-actions">
+    <button mat-button [mat-dialog-close]="null">Cancelar</button>
+    <button mat-button color="primary" [mat-dialog-close]="emitOnClose()" cdkFocusInitial>Salvar</button>
+  </div>
+</div>

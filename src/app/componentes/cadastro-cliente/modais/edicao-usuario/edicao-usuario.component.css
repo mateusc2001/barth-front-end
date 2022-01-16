@@ -1,0 +1,44 @@
+.dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.container-form-cadastro-cliente {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form-field {
+  width: 100%;
+}
+
+.new-img {
+  width: 150px;
+  height: 150px;
+  border-radius: 10px;
+  margin: 10px 0;
+}
+
+.container-input-image {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+input[type='file'] {
+  display: none
+}
+
+.input-wrapper {
+  transition: .4s;
+  background-color: #3f51b5;
+  border-radius: 5px;
+  color: #fff;
+  margin: 10px;
+  padding: 8px 10px;
+}
+
+.input-wrapper {
+  background-color: #3f51b5;
+}

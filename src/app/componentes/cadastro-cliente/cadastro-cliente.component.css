@@ -1,0 +1,23 @@
+.main-container-cadastro-cliente {
+    width: 100%;
+    max-height: 90%;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.tabela-cliente {
+    box-shadow: 0px 0px 10px  rgba(128, 128, 128, 0.164);
+
+}
+
+table {
+    width: 100%;
+}
+
+.toolbar-table-cliente {
+    background-color: rgb(78, 78, 78);
+    color: white;
+    font-weight: lighter;
+    display: flex;
+    justify-content: space-between;
+}

@@ -1,0 +1,193 @@
+<h1 mat-dialog-title>{{data.id}} - {{data.descricao}}</h1>
+<h2>{{data.valor | currency: 'BRL'}}</h2>
+
+<form [formGroup]="formGroupTipoRegistro">
+    <mat-form-field appearance="fill" style="width: 100%;">
+        <mat-label>Selecione o tipo de registro</mat-label>
+        <mat-select formControlName="tipoRegistro" (selectionChange)="doSomething($event)">
+            <mat-option *ngFor="let season of seasons" [value]="season.value">
+                {{season.text}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+</form>
+
+<mat-divider style="margin-bottom: 10px;"></mat-divider>
+
+<container-element [ngSwitch]="formGroupTipoRegistro.controls.tipoRegistro.value">
+
+    <some-element *ngSwitchCase="1">
+        <form [formGroup]="formGroupContaSelecionada">
+            <mat-form-field appearance="fill" style="width: 100%;">
+                <mat-label>Selecione a conta</mat-label>
+                <mat-select formControlName="contaSelecionada">
+                    <mat-option *ngFor="let conta of contas" [value]="conta.id">{{conta.descricao}} - {{conta.valor |
+                        currency:'BRL'}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </form>
+    </some-element>
+
+    <some-element *ngSwitchCase="2">
+        <form [formGroup]="formGroupContaSelecionada">
+            <mat-form-field appearance="fill" style="width: 100%;">
+                <mat-label>Selecione a conta</mat-label>
+                <mat-select formControlName="contaSelecionada">
+                    <mat-option *ngFor="let conta of contas" [value]="conta.id">{{conta.descricao}} - {{conta.valor |
+                        currency:'BRL'}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </form>
+    </some-element>
+
+    <some-element *ngSwitchCase="3">
+
+        <form [formGroup]="formGroupCarroSelecionado">
+
+            <mat-form-field class="form-field">
+                <mat-label>Descrição da despesa</mat-label>
+                <input matInput formControlName="descricao">
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" style="width: 100%;">
+                <mat-label>Selecione o veículo</mat-label>
+                <mat-select formControlName="carroSelecionado">
+                    <mat-option *ngFor="let carro of carros" [value]="carro.id">{{carro.modelo}} - {{carro.placa}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </form>
+    </some-element>
+
+    <some-element *ngSwitchCase="4">
+        <div mat-dialog-content>
+            <mat-form-field class="form-field">
+                <mat-label>Descrição pessoal</mat-label>
+                <input matInput [(ngModel)]="data.descricaoPessoal">
+            </mat-form-field>
+            <form class="form-select-destinatario-origem">
+                <mat-form-field class="select-destinatario-origem destinatario" appearance="fill">
+                    <mat-label>Selecione o usuário de origem</mat-label>
+                    <mat-select [(ngModel)]="data.origem" name="origens">
+                        <mat-option *ngFor="let destino of destinos" [value]="destino.id">
+                            {{destino.nomeCompleto}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field class="select-destinatario-origem origem" appearance="fill">
+                    <mat-label>Selecione o destinatário</mat-label>
+                    <mat-select [(ngModel)]="data.destinatario" name="destinos">
+                        <mat-option *ngFor="let destino of destinos" [value]="destino.id">
+                            {{destino.nomeCompleto}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </form>
+
+            <mat-divider *ngIf="data.valor > 0"></mat-divider>
+
+            <mat-card *ngIf="data.valor > 0">
+                <mat-card-content>
+                    <section class="example-section">
+                        <mat-checkbox class="example-margin" [(ngModel)]="data.geraComissao">Gera comissão
+                        </mat-checkbox>
+                    </section>
+                </mat-card-content>
+            </mat-card>
+            <mat-form-field *ngIf="data.geraComissao && data.valor > 0" class="form-field">
+                <input matInput [(ngModel)]="data.porcentagemComissao" autocomplete="off" maxlength="5"
+                    placeholder="Ex.: 98,38" mask="00,00">
+
+            </mat-form-field>
+
+            <mat-divider *ngIf="getRegistrosComisionados().length > 0 && !data.geraComissao"></mat-divider>
+
+            <mat-form-field style="width: 100%; margin: 10px 0;" appearance="fill"
+                *ngIf="getRegistrosComisionados().length > 0 && !data.geraComissao">
+                <mat-label>Selecione o registro</mat-label>
+                <mat-select [(ngModel)]="pagarComissao">
+                    <mat-option *ngFor="let item of getRegistrosComisionados(); let i = index" [value]="i">
+                        {{item}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </some-element>
+
+    <some-element *ngSwitchCase="5">
+
+        <div style="box-shadow: 0px 0px 10px  rgba(128, 128, 128, 0.64); padding: 10px; border-radius: 3px;">
+            <form [formGroup]="multiplasTransferencias">
+                <div style="margin: 10px;display: flex; justify-content: space-around; font-size: 20px;"> Saldo restante
+                    <span [class.color-green]="valorPositivo(saldoRestante())"
+                        [class.color-red]="valorNegativo(saldoRestante())">{{saldoRestante() | currency:'BRL'}}</span>
+                </div>
+                <mat-form-field style="width: 100%;" appearance="fill">
+                    <mat-label>Selecione o usuário de origem</mat-label>
+                    <mat-select formControlName="usuarioOrigem" name="origens">
+                        <mat-option *ngFor="let destino of destinos" [value]="destino.id">
+                            {{destino.nomeCompleto}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </form>
+
+            <mat-divider style="margin-bottom: 10px;"></mat-divider>
+
+            <form [formGroup]="novaMultiplaTransferenciaForm">
+
+                <mat-form-field style="width: 100%;" appearance="fill">
+                    <mat-label>Selecione o usuário de destino</mat-label>
+                    <mat-select formControlName="usuarioDestino" name="origens">
+                        <mat-option *ngFor="let destino of destinos" [value]="destino.id">
+                            {{destino.nomeCompleto}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field class="form-field">
+                    <mat-label>Descrição da despesa</mat-label>
+                    <input matInput formControlName="descricao">
+                </mat-form-field>
+
+                <mat-form-field class="form-field">
+                    <mat-label>Valor</mat-label>
+                    <input matInput formControlName="valor" currencyMask
+                        [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" class="text-align-center">
+                </mat-form-field>
+
+                <button mat-button color="primary" (click)="adicionarTransferencia()">Adicionar</button>
+                <!-- <button mat-button color="primary" (click)="logarCoisas()">log</button> -->
+            </form>
+
+            <form [formGroup]="multiplasTransferencias">
+                <div formArrayName="transferencias">
+                    <span *ngFor="let transferencia of transferencias.value; index as i" formControlName="i">
+                        <mat-list role="list">
+                            <mat-list-item role="listitem"
+                                style="display: flex; justify-content: space-between; align-items: center;">
+                                <div>
+                                    {{getUsuarioPorId(transferencia.controls.usuarioDestino.value).nomeCompleto}} -
+                                    {{transferencia.controls.descricao.value}}
+                                    - {{transferencia.controls.valor.value | currency: 'BRL'}}
+                                </div>
+                            </mat-list-item>
+                        </mat-list>
+                    </span>
+                </div>
+            </form>
+        </div>
+    </some-element>
+
+
+
+
+</container-element>
+
+
+<div mat-dialog-actions class="dialog-actions">
+    <button mat-button (click)="onNoClick()">Cancelar</button>
+    <button mat-button color="primary" [mat-dialog-close]="emitOnClose()" (click)="executar()"
+        cdkFocusInitial>Salvar</button>
+</div>

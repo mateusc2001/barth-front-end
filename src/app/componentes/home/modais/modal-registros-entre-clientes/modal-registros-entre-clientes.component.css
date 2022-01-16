@@ -1,0 +1,41 @@
+table {
+  width: 100%;
+  overflow: scroll;
+}
+
+.aline-items-center {
+  text-align: end;
+}
+
+.main-container-table-contas-receber {
+  margin: 20px;
+}
+
+.container-table-contas-receber-variaveis {
+  box-shadow: 0 0 10px rgba(128, 128, 128, 0.342);
+  padding: 20px;
+}
+
+h2 {
+  font-size: 24px;
+  font-weight: 300;
+}
+
+/* Structure */
+
+table {
+  width: 100%;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+.color-red {
+  color: red;
+}
+
+.color-green {
+  color: green;
+}

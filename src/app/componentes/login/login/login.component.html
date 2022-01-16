@@ -1,0 +1,29 @@
+<section class="main-container-login-component">
+  <div class="container-form-login-component">
+
+    <form [formGroup]="formGroupLogin" class="example-form">
+      <mat-form-field appearance="fill">
+        <mat-label>Usuário</mat-label>
+        <input matInput placeholder="Usuário" formControlName="txtUsuario">
+      </mat-form-field>
+      <mat-form-field appearance="fill" class="example-full-width">
+        <mat-label>Senha</mat-label>
+        <input matInput [type]="hide ? 'password' : 'text'" placeholder="Senha" formControlName="txtSenha">
+        <button mat-icon-button matSuffix type="button" (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+          [attr.aria-pressed]="hide">
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+      </mat-form-field>
+
+      <span *ngIf="exibirMensagemErro" class="mensagem-erro">{{ mensagemErro }}</span>
+
+      <button mat-raised-button type="button" color="primary" (click)="verificarLogin()" class="login-button">
+        <div class="container-itens-btn-login">
+          <div class="spinner-loaing" *ngIf="showLoading"></div>
+          Entrar
+        </div>
+      </button>
+    </form>
+
+  </div>
+</section>

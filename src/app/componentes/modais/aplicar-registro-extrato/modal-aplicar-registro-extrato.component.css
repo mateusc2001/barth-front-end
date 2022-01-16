@@ -1,0 +1,48 @@
+.descricao {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.form-field {
+    width: 100%;
+}
+
+.dialog-actions {
+    justify-content: flex-end;
+}
+
+.form-select-destinatario-origem {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 0px;
+}
+
+.select-destinatario-origem {
+    width: 49%;
+}
+
+.example-h2 {
+    margin: 10px;
+}
+
+.example-section {
+    display: flex;
+    align-content: center;
+    align-items: center;
+    height: 60px;
+}
+
+.example-margin {
+    margin: 0 10px;
+}
+
+.color-red {
+    color: red;
+}
+
+.color-green {
+    color: green;
+}

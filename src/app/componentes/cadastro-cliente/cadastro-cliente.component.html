@@ -1,0 +1,58 @@
+<section class="main-container-cadastro-cliente">
+    <div class="tabela-cliente">
+        <p>
+            <mat-toolbar class="toolbar-table-cliente">
+                <span>Clientes cadastrados</span>
+                <div>
+                    <button mat-icon-button (click)="openDialog()" class="example-icon favorite-icon"
+                        aria-label="Example icon-button with heart icon">
+                        <mat-icon>person_add_alt</mat-icon>
+                    </button>
+                </div>
+            </mat-toolbar>
+        </p>
+        <div class="mat-elevation-z8">
+            <table mat-table [dataSource]="dataSource">
+
+                <!-- Position Column -->
+                <ng-container matColumnDef="id">
+                    <th mat-header-cell *matHeaderCellDef> # </th>
+                    <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+                </ng-container>
+
+                <!-- Name Column -->
+                <ng-container matColumnDef="dataCriacao">
+                    <th mat-header-cell *matHeaderCellDef> Criado em </th>
+                    <td mat-cell *matCellDef="let element"> {{element.dataCriacao | date: 'dd/MM/yyyy HH:mm'}} </td>
+                </ng-container>
+
+                <!-- Name Column -->
+                <ng-container matColumnDef="nome">
+                    <th mat-header-cell *matHeaderCellDef> Nome completo </th>
+                    <td mat-cell *matCellDef="let element"> {{element.nomeCompleto}} </td>
+                </ng-container>
+
+                <!-- Weight Column -->
+                <ng-container matColumnDef="usuario">
+                    <th mat-header-cell *matHeaderCellDef> Usuário </th>
+                    <td mat-cell *matCellDef="let element"> {{element.usuario}} </td>
+                </ng-container>
+
+              <ng-container matColumnDef="acoes">
+                <th mat-header-cell *matHeaderCellDef style="text-align: end;"> Ações </th>
+                <td mat-cell *matCellDef="let element" style="text-align: end">
+                  <button mat-icon-button (click)="openDialogEdicaoCliente(element)">
+                    <mat-icon>edit</mat-icon>
+                  </button>
+                </td>
+              </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+
+            <mat-paginator [length]="pageOptions.length" [pageSize]="pageOptions.pageSize"
+                [pageSizeOptions]="[5, 10, 20]" (page)="atualizarPaginas($event)" showFirstLastButtons></mat-paginator>
+        </div>
+    </div>
+</section>

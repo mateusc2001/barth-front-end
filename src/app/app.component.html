@@ -1,0 +1,47 @@
+<mat-drawer-container class="example-container" autosize>
+  <header *ngIf="!showMainMenu()" class="app-component-header">
+    <p class="menu-top">
+      <mat-toolbar color="primary">
+        <button mat-icon-button class="example-icon" (click)="drawer.toggle()"
+          aria-label="Example icon-button with menu icon">
+          <mat-icon>menu</mat-icon>
+        </button>
+        <span>Barth automóveis</span>
+        <span class="example-spacer"></span>
+        <button mat-icon-button class="example-icon" (click)="logout()" (click)="drawer.close()"
+          aria-label="Example icon-button with share icon">
+          <mat-icon>logout</mat-icon>
+        </button>
+      </mat-toolbar>
+    </p>
+  </header>
+  <mat-drawer #drawer class="example-sidenav" mode="side">
+    <div class="container-circle-image">
+      <div>
+        <img src="{{usuarioLogado.base64image}}" style="width: 120px; height: 120px; border-radius: 100px;"
+          (click)="navigateHome()">
+      </div>
+      <!-- <div class="image-user-side-nav" style="cursor: pointer;" [ngStyle]="{'background-image': }"
+          (click)="navigateHome()"></div> -->
+      <span class="name-user" style="cursor: pointer;" (click)="navigateHome()">{{usuarioLogado.nomeCompleto}}</span>
+    </div>
+    <mat-list>
+      <mat-list-item class="itens-menu-opcoes" *ngFor="let folder of folders" [routerLink]="folder.routerLink">
+        <span *ngIf="!!folder.tipoContaEnum; else semBadge"
+          matBadge="{{getContasVencimentoHojeStorage(folder.tipoContaEnum)}}" matBadgeOverlap="false"
+          style="display: flex; align-items: center;">
+          <mat-icon mat-list-icon>{{folder.iconName}}</mat-icon>
+          <div mat-line>{{folder.name}}</div>
+        </span>
+
+        <ng-template #semBadge>
+          <mat-icon mat-list-icon>{{folder.iconName}}</mat-icon>
+          <div mat-line>{{folder.name}}</div>
+        </ng-template>
+        <mat-divider></mat-divider>
+      </mat-list-item>
+    </mat-list>
+
+  </mat-drawer>
+  <router-outlet (activate)='onActivate($event)'></router-outlet>
+</mat-drawer-container>

@@ -1,0 +1,29 @@
+<div>
+    <h1 mat-dialog-title>Novo registro caixa</h1>
+    <div mat-dialog-content class="container-form-cadastro-cliente" [formGroup]="formGroupCadastroCliente">
+
+        <mat-form-field class="form-field">
+            <mat-label>Descrição</mat-label>
+            <input matInput formControlName="txtDescricao">
+        </mat-form-field>
+
+        <mat-form-field class="form-field">
+            <mat-label>Valor</mat-label>
+            <input matInput formControlName="txtValor" currencyMask
+                [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" class="text-align-center">
+        </mat-form-field>
+
+        <section class="example-section">
+            <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group" formControlName="entrada">
+                <mat-radio-button class="example-radio-button" *ngFor="let season of seasons" [value]="season.value">
+                    {{season.text}}
+                </mat-radio-button>
+            </mat-radio-group>
+        </section>
+
+    </div>
+    <div mat-dialog-actions class="dialog-actions">
+        <button mat-button [mat-dialog-close]="null">Cancelar</button>
+        <button mat-button color="primary" [mat-dialog-close]="emitOnClose()" cdkFocusInitial>Salvar</button>
+    </div>
+</div>

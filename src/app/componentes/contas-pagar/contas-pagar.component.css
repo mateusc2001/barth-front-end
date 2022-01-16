@@ -1,0 +1,43 @@
+
+table {
+  box-sizing: border-box;
+  width: 100%;
+  overflow: scroll;
+}
+
+.aline-items-center {
+  text-align: end;
+}
+
+.main-container-table-contas-pagar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.table-contas-a-pagar {
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.container-pagination-table-contas-pagar {
+  width: 95%;
+  box-shadow: 0 0 10px rgba(128, 128, 128, 0.34);
+  margin: 20px 20px 10px 20px;
+  padding: 20px;
+
+}
+
+.container-app-tabela-contas-fixas {
+  width: 95%;
+}
+
+h2 {
+  font-size: 24px;
+  font-weight: 300;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}

@@ -1,0 +1,122 @@
+<section class="main-container-home">
+  <div class="container-dados-usuario">
+    <div class="container-dados-imagem">
+      <img src="{{usuarioLogado.base64image}}" class="imagem-usuario">
+      <span class="span-user-name">{{usuarioLogado.nomeCompleto}}</span>
+    </div>
+    <div class="container-valores">
+      <div [ngStyle]="{ 'color': usuarioLogado.saldo > 0 ? 'green' : usuarioLogado.saldo < 0 ? 'red' : 'black' }"
+           style="height: 30%; display: flex; justify-content: center; align-items: center; padding: 20px; box-sizing: border-box; font-size: 28px; font-weight: lighter; font-style: italic;">
+        <span>{{usuarioLogado.saldo | currency : 'R$'}}</span>
+        <mat-icon *ngIf="usuarioLogado.saldo > 0 || usuarioLogado.saldo < 0"
+                  [ngStyle]="{ 'color': usuarioLogado.saldo > 0 ? 'green' : 'red' }"
+                  [ngStyle]="{ 'transform': usuarioLogado.saldo < 0 ? 'rotate(180deg)' : 'rotate(0deg)' }"
+                  style="margin: 0 10px;">arrow_upward
+        </mat-icon>
+      </div>
+      <div style="height: 70%;">
+        <div style="height: 30%; width: 100%; display: flex; justify-content: center; align-items: center;">
+          <div
+            style="width: 90%; height: 10px; display: flex; border-radius: 100px; background-color: rgb(153, 153, 153); overflow: hidden;">
+            <div *ngFor="let metrica of metricas; let i = index" style="height: 100%;"
+                 matTooltip="{{getLargura(metrica.porcentagem)}} | {{metrica.user.nomeCompleto}}"
+                 [ngStyle]="{ 'width': getLargura(metrica.porcentagem) , 'background-color': getColor(i)}">
+            </div>
+          </div>
+        </div>
+        <div style="height: 70%; display: flex; align-items: center; justify-content: space-around;">
+          <div style="width: 20%;" *ngFor="let item of metricas; let i = index" (click)="openModalRegistrosEntreClientesComponent(item.user.id)">
+            <img src="{{item.user.base64image}}"
+                 matTooltip="{{getLargura(item.porcentagem)}} | {{item.user.nomeCompleto}}"
+                 style="height: 100px; width: 100px; border-radius: 100px; border: 5px solid transparent;"
+                 [ngStyle]="{ 'border-color': getColor(i) }">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container-table-registros">
+    <mat-tab-group mat-align-tabs="center" class="mat-tab-group-transacoes">
+      <mat-tab label="Todas">
+        <table mat-table [dataSource]="getAllRegistros()" class="mat-elevation-z8">
+
+          <!--- Note that these columns can be defined in any order.
+                The actual rendered columns are set as a property on the row definition" -->
+
+          <!-- Position Column -->
+          <ng-container matColumnDef="position">
+            <th mat-header-cell *matHeaderCellDef> No.</th>
+            <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+          </ng-container>
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef> Data</th>
+            <td mat-cell *matCellDef="let element"> {{element.data}} </td>
+          </ng-container>
+
+          <!-- Weight Column -->
+          <ng-container matColumnDef="weight">
+            <th mat-header-cell *matHeaderCellDef> Documento</th>
+            <td mat-cell *matCellDef="let element"> {{element.descricao}} </td>
+          </ng-container>
+
+          <!-- Symbol Column -->
+          <ng-container matColumnDef="symbol">
+            <th mat-header-cell *matHeaderCellDef> Valor</th>
+            <td mat-cell *matCellDef="let element"> {{element.valor}} </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+
+
+      </mat-tab>
+      <mat-tab label="Comissionadas">
+        <table mat-table [dataSource]="getRegistrosComissionados()" class="mat-elevation-z8">
+
+          <!--- Note that these columns can be defined in any order.
+                The actual rendered columns are set as a property on the row definition" -->
+
+          <!-- Position Column -->
+          <ng-container matColumnDef="position">
+            <th mat-header-cell *matHeaderCellDef> No.</th>
+            <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+          </ng-container>
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef> Data</th>
+            <td mat-cell *matCellDef="let element"> {{element.data}} </td>
+          </ng-container>
+
+          <!-- Weight Column -->
+          <ng-container matColumnDef="weight">
+            <th mat-header-cell *matHeaderCellDef> Documento</th>
+            <td mat-cell *matCellDef="let element"> {{element.descricao}} </td>
+          </ng-container>
+
+          <!-- Symbol Column -->
+          <ng-container matColumnDef="symbol">
+            <th mat-header-cell *matHeaderCellDef> Valor</th>
+            <td mat-cell *matCellDef="let element"> {{element.valor}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="valor-comissao">
+            <th mat-header-cell *matHeaderCellDef> Valor comissão</th>
+            <td mat-cell *matCellDef="let element"> {{element.transacao.valorComissao}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef> Status </th>
+            <td mat-cell *matCellDef="let element"> {{getStatusComissao(element)}} </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumnsComissoes"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumnsComissoes;"></tr>
+        </table>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</section>
