@@ -24,8 +24,8 @@ export class LoginComponent implements OnInit {
 
   public hide = true;
   public formGroupLogin: FormGroup = this.formBuilder.group({
-    txtUsuario: new FormControl('renata'),
-    txtSenha: new FormControl('111')
+    txtUsuario: new FormControl(''),
+    txtSenha: new FormControl('')
   });
   constructor(
     private formBuilder: FormBuilder,
@@ -50,11 +50,11 @@ export class LoginComponent implements OnInit {
 
         this.showLoading = false;
         this.exibirMensagemErro = true;
-        this.mensagemErro = `O seu computador não está conseguindo se conectar com o servidor.`;
+        this.mensagemErro = `O seu computador não está conseguindo se conectar com o servidor. ERRO 403: Não autorizado.`;
       }, err => {
         this.showLoading = false;
         this.exibirMensagemErro = true;
-        this.mensagemErro = `O seu computador não está conseguindo se conectar com o servidor.`;
+        this.mensagemErro = `O seu computador não está conseguindo se conectar com o servidor. ERRO 403: Não autorizado.`;
       });
   }
 
