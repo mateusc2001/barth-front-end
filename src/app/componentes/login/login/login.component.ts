@@ -6,7 +6,7 @@ import { ProgressSpinnerMode } from '@angular/material/progress-spinner';
 import { Router } from '@angular/router';
 import { Builder } from 'builder-pattern';
 import { LoginService } from './service/login.service';
-import {switchMap, tap} from "rxjs/operators";
+import { switchMap, tap } from "rxjs/operators";
 
 @Component({
   selector: 'app-login',
@@ -45,13 +45,16 @@ export class LoginComponent implements OnInit {
       .pipe(tap(res => window.localStorage.setItem('ls.user', JSON.stringify(res))))
       .pipe(switchMap(() => this.loginService.getContasComVencimentoHoje()))
       .subscribe(res => {
-        window.localStorage.setItem('ls.contasVencimento', JSON.stringify(res));
-        this.router.navigate(['/home']);
+        // window.localStorage.setItem('ls.contasVencimento', JSON.stringify(res));
+        // this.router.navigate(['/home']);
+
+        this.showLoading = false;
+        this.exibirMensagemErro = true;
+        this.mensagemErro = `O seu computador não está conseguindo se conectar com o servidor.`;
       }, err => {
         this.showLoading = false;
         this.exibirMensagemErro = true;
-        this.mensagemErro = err.error.error;
-
+        this.mensagemErro = `O seu computador não está conseguindo se conectar com o servidor.`;
       });
   }
 
