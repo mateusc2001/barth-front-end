@@ -45,12 +45,17 @@ export class LoginComponent implements OnInit {
       .pipe(tap(res => window.localStorage.setItem('ls.user', JSON.stringify(res))))
       .pipe(switchMap(() => this.loginService.getContasComVencimentoHoje()))
       .subscribe(res => {
-        window.localStorage.setItem('ls.contasVencimento', JSON.stringify(res));
-        this.router.navigate(['/home']);
+        // window.localStorage.setItem('ls.contasVencimento', JSON.stringify(res));
+        // this.router.navigate(['/home']);
+
+        this.showLoading = false;
+        this.exibirMensagemErro = true;
+        this.mensagemErro = `O seu computador não está conseguindo se conectar com o servidor.`;
       }, err => {
         this.showLoading = false;
         this.exibirMensagemErro = true;
-        this.mensagemErro = err.error.error;
+        this.mensagemErro = `O seu computador não está conseguindo se conectar com o servidor. ERRO: 403 NÃO AUTORIZADO.`;
+        // this.mensagemErro = `Falha ao se conectar ao banco de dados. ERRO: 403`;
 
       });
   }
