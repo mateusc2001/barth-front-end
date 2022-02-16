@@ -1,0 +1,1074 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tem soluções financeiras</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- <link rel="stylesheet" href="style.css"> -->
+
+    <style>
+        body {
+            padding: 0 !important;
+            margin: 0 !important;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            /* font-family: Muli; */
+        }
+
+        @media only screen and (max-width: 1200px) {
+            body {
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+
+            .simular-saldo-fgts {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .titulo-primeiro-simule-fgts {
+                text-align: center;
+                margin-bottom: 10px;
+            }
+
+            .btn-priemiro-simule-fgts {
+                width: 80%;
+            }
+
+            .container-curiosidades-caixas {
+                flex-direction: column;
+            }
+
+            .container-curiosidade {
+                width: 100% !important;
+                box-sizing: border-box;
+                padding: 50px 20px !important;
+            }
+
+            .container-curiosidade.left {
+                margin-bottom: 120px;
+            }
+
+            header,
+            footer,
+            .full-largura {
+                width: 90% !important;
+            }
+
+            .titulo-fechando-com-a-gente {
+                text-align: center;
+            }
+
+            .container-vantagens {
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .card-vantagem {
+                width: 80% !important;
+                margin: 5px 0;
+            }
+
+            .como-obter-responsive {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .tutorial-como-obter {
+                width: 90% !important;
+                text-align: center;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                margin: 30px 0;
+            }
+
+            .container-duvidas {
+                flex-direction: column;
+            }
+
+            .container-duvidas .duvidas {
+                width: 100% !important;
+                padding: 0;
+            }
+
+            .container-duvidas .duvidas.left {
+                margin-bottom: 0 !important;
+            }
+
+            .container-avaliacoes {
+                flex-direction: column;
+            }
+
+            .card-avaliacao {
+                width: 80% !important;
+                margin: 20px 0;
+            }
+
+            .container-o-que-dizem-sobre-nos {
+                width: 80% !important;
+                margin-bottom: 40px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .container-o-que-dizem-sobre-nos span {
+                text-align: center !important;
+            }
+
+            .container-footer-detalhes {
+                flex-direction: column;
+            }
+
+            .full-largura-detalhes {
+                width: 90% !important;
+                align-items: center !important;
+            }
+
+            .full-largura-detalhes span {
+                text-align: center;
+            }
+
+            .full-largura-simular-wpp {
+                width: 90% !important;
+            }
+
+            .input-valor-fgts {
+                width: 100% !important;
+            }
+
+            .titulos-simular-wpp span {
+                text-align: center;
+            }
+
+            .titulos-simular-wpp {
+                margin-bottom: 20px;
+            }
+
+            .container-principal-introducao {
+                display: flex;
+                flex-direction: column;
+            }
+
+            .container-descricao-introducao {
+                width: 100% !important;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .container-descricao-centralizar {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center !important;
+                margin-top: 20px;
+            }
+
+            .container-descricao-centralizar span {
+                text-align: center;
+            }
+
+            .como-obter-list-response {
+                flex-direction: column;
+            }
+
+            .descricao-como-obter {
+                text-align: start;
+            }
+
+            .header-desktop {
+                display: none !important;
+            }
+
+            .header-mobile {
+                display: flex !important;
+                padding: 40px !important;
+                box-sizing: border-box;
+                display: flex;
+                justify-content: space-between;
+            }
+
+            .title-curiosidade {
+                font-size: 18px !important;
+            }
+
+            .subtitle-curiosidade {
+                font-size: 14px !important;
+            }
+
+            .titulo-fechando-com-a-gente {
+                /* font-size: 20px!important; */
+            }
+
+            .titulo-primeiro-simule-fgts {
+                font-size: 20px !important;
+            }
+        }
+
+        .header-desktop {
+            display: flex;
+        }
+
+        .header-mobile {
+            display: none;
+        }
+
+        input {
+            background: transparent;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .full-largura-simular-wpp {
+            width: 60%;
+        }
+
+        .full-largura-detalhes {
+            width: 20%;
+        }
+
+        .container-footer-detalhes {
+            height: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .container-o-que-dizem-sobre-nos {
+            width: 40%;
+            height: 200px;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .container-duvidas .duvidas.right,
+        .container-duvidas .duvidas.left {
+            margin-bottom: 30px;
+        }
+
+        .tutorial-como-obter {
+            height: 100%;
+            width: 50%;
+        }
+
+        .como-obter-responsive {
+            height: 100%;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .titulo-fechando-com-a-gente {
+            color: #5f7d91;
+            font-size: 28px;
+        }
+
+        .full-largura {
+            width: 60%;
+        }
+
+        .container-curiosidades-caixas {
+            width: 60%;
+            display: flex;
+            justify-content: space-between;
+            max-width: 1000px;
+        }
+
+        .main-container {
+            width: 100%;
+            width: 100%;
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header,
+        footer {
+            width: 60%;
+        }
+
+        main {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+        }
+
+        .img-logo {
+            width: 80px;
+            /* margin-top: -20px; */
+            transform: scale(1.4);
+            z-index: 1;
+        }
+
+        .nav-ul {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            list-style: none;
+        }
+
+        .nav-li {
+            font-size: 16px;
+            font-weight: 300;
+            color: rgb(55, 86, 163);
+            cursor: pointer;
+            transition: .3s;
+            padding: 10px;
+            margin: 3px;
+            text-align: center;
+            border-radius: 3px;
+        }
+
+        .menu-nav:hover {
+            color: white;
+            background-color: #23406e;
+        }
+
+        .fale-conosco-nav {
+            background-color: #29c38b;
+            padding: 10px;
+            font-weight: 400;
+            color: white;
+            border-radius: 3px;
+        }
+
+        .container-apresentacao {
+            width: 100%;
+            background: #5f7d91;
+            z-index: 2;
+            display: flex;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .line {
+            width: 45px;
+            height: 10px;
+            background: white;
+            border-radius: 10px;
+        }
+
+        .simular-saldo-fgts {
+            margin: 10px 0;
+            padding: 10px 0;
+            width: 60%;
+            height: 100px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .container-curiosidades {
+            margin-top: 10px;
+            padding-top: 100px;
+            /* height: 200px; */
+            width: 100%;
+            background-color: #f9f9fa;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container-curiosidade {
+            width: 40%;
+            height: 50px;
+            padding: 20px;
+            padding-right: 50px;
+            border: 1px solid #5f7d91;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            border-radius: 5px;
+        }
+
+        .title-curiosidade {
+            color: #5f7d91;
+            font-size: 30px;
+        }
+
+        .subtitle-curiosidade {
+            color: rgb(66, 66, 66);
+            font-size: 16px;
+        }
+
+        .container-vantagens {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            margin: 30px 0;
+        }
+
+        .card-vantagem {
+            width: 20%;
+            height: 250px;
+            background-color: cornflowerblue;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            /* box-shadow: 0px 0px 11px 4px rgba(0,0,0,0.27); */
+            background-color: #ffffff;
+            border-radius: 1.5em;
+            padding: 20px 20px 0px 20px;
+            transition: .3s;
+        }
+
+        .card-vantagem span {
+            width: 80%;
+            text-align: center;
+        }
+
+        .card-vantagem:hover {
+            transform: scale(1.1);
+        }
+
+        .title-vantagem {
+            font-weight: bold;
+        }
+
+        .subtitle-vantagem {
+            color: rgb(70, 70, 70);
+        }
+
+        .container-como-obter {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            /* height: 470px; */
+            margin-top: 50px;
+            overflow: hidden;
+        }
+
+        .numeros-como-obter {
+            font-size: 50px;
+            color: #fcb813;
+            font-weight: bold;
+        }
+
+        .descricao-como-obter {
+            margin-left: 10px;
+            font-size: 16px;
+            color: rgb(49, 49, 49);
+        }
+
+        .container-faq {
+            width: 70%;
+            /* height: 700px; */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container-duvidas {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .duvidas {
+            width: 47%;
+            /* height: 300px; */
+            padding: 15px;
+        }
+
+        .duvidas.left {
+            /* background-color: red; */
+        }
+
+        .duvidas.right {
+            /* background-color: cornflowerblue; */
+        }
+
+        .card-duvida-frequente {
+            border: 1px solid rgba(47, 47, 47, 0.19);
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            border-radius: 3px;
+            margin: 17px 0;
+            box-sizing: border-box;
+        }
+
+        .title-duvida {
+            font-size: 16px;
+            color: #187896;
+        }
+
+        .container-avaliacoes {
+            width: 70%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .divider {
+            width: 100%;
+            height: 1px;
+            background-color: #35353528;
+        }
+
+        .card-avaliacao {
+            width: 25%;
+            min-height: 100px;
+            border-radius: 10px;
+            background-color: white;
+            box-sizing: border-box;
+            padding: 20px;
+        }
+
+        .circle-image {
+            width: 70px;
+            height: 70px;
+            border-radius: 100px;
+            background-position: center;
+            background-size: cover;
+        }
+
+        .circle-image.man {
+            background-image: url("https://i0.wp.com/post.medicalnewstoday.com/wp-content/uploads/sites/3/2020/03/GettyImages-1092658864_hero-1024x575.jpg?w=1155&h=1528");
+        }
+
+        .circle-image.woman {
+            background-image: url("https://media.istockphoto.com/photos/beauty-portrait-of-young-woman-picture-id1309405076?b=1&k=20&m=1309405076&s=170667a&w=0&h=28jfs2oOeQfL65kzGPVoPS8xxFJWK1h7LEkTSWKY-lM=");
+        }
+
+        .paragrafo-avaliacao {
+            color: rgb(68, 68, 68);
+            font-size: 20px;
+            margin: 5px 0 0 0;
+            /* text-indent: initial; */
+        }
+
+        .simular-saldo-fgts.contato-wpp {
+            width: 60%;
+            height: 100%;
+            margin: 0;
+            background-color: #5f7d91;
+            box-sizing: border-box;
+            padding: 40px 30px;
+            border-radius: 10px;
+            transform: translate(0, -50%);
+        }
+
+        .coluna-footer {
+            width: 20%;
+            height: 100%;
+            /* background-color: red; */
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .footer-title {
+            font-size: 22px;
+            color: #23406e;
+        }
+
+        .footer-item-list {
+            color: #444444c7;
+            margin: 10px 0;
+        }
+
+        .background-color-change {
+            background-color: #458afd !important;
+        }
+
+        .title-color-change {
+            color: #458afd !important;
+        }
+    </style>
+</head>
+
+<body>
+    <section class="main-container">
+        <header class="header-desktop">
+            <img class="img-logo" src="/image/tem-logo.png">
+            <div class="full-largura" style="width: 60%;">
+                <ul class="nav-ul">
+                    <li class="nav-li menu-nav title-color-change">VANTAGENS</li>
+                    <li class="nav-li menu-nav title-color-change">COMO OBTER</li>
+                    <li class="nav-li menu-nav title-color-change">FAQ</li>
+                    <li class="nav-li menu-nav title-color-change">DEPOIMENTOS</li>
+                    <li class="nav-li fale-conosco-nav"
+                        style="display: flex; justify-content: center; align-items: center;">
+                        <img src="/image/whatsapp-icon.png" style="width: 30px;">
+                        FALE CONOSCO
+                    </li>
+                </ul>
+            </div>
+        </header>
+        <header class="header-mobile">
+            <img class="img-logo" src="/image/tem-logo.png">
+            <span class="material-icons">
+                menu
+            </span>
+        </header>
+        <main>
+            <div class="container-apresentacao background-color-change">
+                <div class="full-largura container-principal-introducao"
+                    style=" display: flex; justify-content: center;">
+                    <div class="container-descricao-introducao"
+                        style="width: 50%; display: flex; justify-content: flex-start;">
+                        <div class="container-descricao-centralizar"
+                            style="width: 100%; display: flex; flex-direction: column; align-items: flex-start; justify-content: center;">
+                            <div class="line"></div>
+                            <span style="    font-size: 50px;
+                            color: white;
+                            font-weight: 600;
+                            margin: 21px 0;">
+                                <div style="display: flex; align-items: center;">
+                                    <span>Saque</span>
+                                    <div style="background-color: #fcb813; margin: 15px 0 0 10px; height: 30px;">
+                                        <div style="transform: translate(0, -40%);">agora</div>
+                                    </div>
+                                </div>
+                                <div style="display: flex; align-items: center;">
+                                    <span>seu</span>
+                                    <div style="background-color: #fcb813; margin: 10px 0 0 10px; height: 30px;">
+                                        <div style="transform: translate(0, -30%);">FGTS</div>
+                                    </div>
+                                </div>
+                            </span>
+                            <span style="font-size: 23px; color: white; width: 75%; margin: 5px 0 15px 0;">
+                                ​Você sabia que pode antecipar até
+                                7 anos do seu Saque Aniversário FGTS?
+                            </span>
+                            <a href="https://api.whatsapp.com/send?phone=555139338465" target="_blank">
+                                <button
+                                    style="min-width: 200px; display: flex; justify-content: center; align-items: center; background-color: #29c38b; width: 65%; padding: 15px 0; margin-top: 10px; color: white; border: none; border-radius: 5px; font-size: 20px; font-weight: 500;">
+                                    <img src="/image/whatsapp-icon.png" style="width: 40px; color: #fcb813;">
+                                    Fale conosco
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+                    <div style="width: 50%; text-align: end;">
+                        <img src="/image/man.png"
+                            style="width: 300px; transform: scale(2.6); margin-top: 230px; margin-right: 350px;">
+                    </div>
+                </div>
+            </div>
+
+            <div class="simular-saldo-fgts">
+                <span class="titulo-primeiro-simule-fgts title-color-change" style="color: #5f7d91;
+                font-size: 28px;
+                width: 350px;">Simule agora mesmo
+                    Informe seu saldo FGTS:</span>
+
+                <div style="display: flex; width: 100%; display: flex; justify-content: flex-end;">
+                    <div class="btn-priemiro-simule-fgts"
+                        style="height: 40px; padding: 0 10px; border: 1px solid rgba(56, 56, 56, 0.452); border-radius: 5px 0 0 5px; border-right: none; display: flex; justify-content: space-between; align-items: center;">
+                        <span style="margin-right: 20px; width: 5%; color: #5f7d91; font-size: 20px;">R$</span>
+                        <input type="text"
+                            style="font-size: 20px; width: 85%; border: none; outline: none; height: 90%;"
+                            placeholder="Ex.: 0,00">
+                    </div>
+                    <button class="background-color-change" style="color: white;
+                    background-color: #5f7d91;
+                    width: 120px;
+                    height: 42px;
+                    font-size: 19px;
+                    border-radius: 0 5px 5px 0;
+                    border: none;">Simular</button>
+                </div>
+            </div>
+
+            <div class="container-curiosidades">
+                <div class="container-curiosidades-caixas full-largura">
+                    <div class="container-curiosidade left">
+                        <div style="width: 150px;">
+                            <div class="title-curiosidade">24 horas</div>
+                            <div class="subtitle-curiosidade">Para ter o
+                                dinheiro liberado</div>
+                        </div>
+                        <img src="/image/sacar.png">
+                    </div>
+                    <div class="container-curiosidade right">
+                        <div style="width: 150px;">
+                            <div class="title-curiosidade">100%</div>
+                            <div class="subtitle-curiosidade">De aprovação para
+                                negativados</div>
+                        </div>
+                        <img src="/image/saving.png">
+                    </div>
+                </div>
+
+                <div class="full-largura"
+                    style="margin-top: 100px; display: flex; flex-direction: column; align-items: center;">
+                    <div class="line" style="background-color: #fcb813; margin: 15px 0;"></div>
+                    <span class="titulo-fechando-com-a-gente">Fechando com a gente você
+                        <strong>TEM!</strong></span>
+                    <div class="container-vantagens">
+                        <div class="card-vantagem">
+                            <img src="/image/icon-credit.png">
+                            <span class="title-vantagem">Crédito</span>
+                            <span class="subtitle-vantagem">Sem consulta ao
+                                SPC e SERASA</span>
+                            <div class="line" style="background-color: #fcb813;"></div>
+                        </div>
+                        <div class="card-vantagem">
+                            <img src="/image/icon-calculator.png">
+                            <span class="title-vantagem">Orçamento</span>
+                            <span class="subtitle-vantagem">Não compromete o
+                                orçamento mensal</span>
+                            <div class="line" style="background-color: #fcb813;"></div>
+                        </div>
+                        <div class="card-vantagem">
+                            <img src="/image/icon-boleto.png">
+                            <span class="title-vantagem">Sem Boletos</span>
+                            <span class="subtitle-vantagem">Parcelas descontadas
+                                direto do seu FGTS.</span>
+                            <div class="line" style="background-color: #fcb813;"></div>
+                        </div>
+                        <div class="card-vantagem">
+                            <img src="/image/icon-mobile.png">
+                            <span class="title-vantagem">Praticidade</span>
+                            <span class="subtitle-vantagem">Aquisição do empréstimo
+                                feita 100% pelo celular.</span>
+                            <div class="line" style="background-color: #fcb813;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container-como-obter">
+                <div class="full-largura como-obter-responsive">
+                    <div style="height: 100%; width: 100%; padding-right: 50px;">
+                        <img src="/image/homem-terno.png" style="width: 400px; transform: scale(1.0);">
+                    </div>
+                    <div class="tutorial-como-obter">
+                        <div class="line" style="background-color: #fcb813;"></div>
+                        <div style="margin: 25px 0 35px 0;">
+                            <div style="color: #5f7d91; font-size: 40px; font-weight: 500;">
+                                Como obter</div>
+                            <div style="color: #5f7d91; font-size: 40px; font-weight: 500;">
+                                meu empréstimo?</div>
+                        </div>
+                        <div style="display: flex; width: 100%;" class="como-obter-list-response">
+                            <div>
+                                <div
+                                    style="display: flex; justify-content: flex-start; align-items: center; margin: 10px 0">
+                                    <span class="numeros-como-obter">1.</span>
+                                    <span class="descricao-como-obter">Ser maior de 18 anos ou emancipado;</span>
+                                </div>
+                                <div
+                                    style="display: flex; justify-content: flex-start; align-items: center; margin: 10px 0">
+                                    <span class="numeros-como-obter">3.</span>
+                                    <span class="descricao-como-obter">Ter conta-corrente ou poupança;</span>
+                                </div>
+                                <div
+                                    style="display: flex; justify-content: flex-start; align-items: center; margin: 10px 0">
+                                    <span class="numeros-como-obter">5.</span>
+                                    <span class="descricao-como-obter">Autorizar o banco a acessar seus dados e valores
+                                        do FGTS.</span>
+                                </div>
+                            </div>
+                            <div>
+                                <div
+                                    style="display: flex; justify-content: flex-start; align-items: center; margin: 10px 0">
+                                    <span class="numeros-como-obter">2.</span>
+                                    <span class="descricao-como-obter">CPF em situação regular na receita;</span>
+                                </div>
+                                <div
+                                    style="display: flex; justify-content: flex-start; align-items: center; margin: 10px 0">
+                                    <span class="numeros-como-obter">4.</span>
+                                    <span class="descricao-como-obter">Optar pelo saque de aniversário;</span>
+                                </div>
+                                <div
+                                    style="display: flex; justify-content: flex-start; align-items: center; margin: 10px 0">
+                                    <span class="numeros-como-obter">6.</span>
+                                    <span class="descricao-como-obter">Aprovação da simulação</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="color: #fcb813; font-size: 40px; font-weight: bold;">Dinheiro na conta!</div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="width: 100%; background-color: #f9f9fa; display: flex; justify-content: center;">
+                <div class="container-faq">
+                    <div style="margin-top: 30px; display: flex; flex-direction: column; align-items: center;">
+                        <span style="text-align: center; font-size: 20px; color: #fcb813;">FAQ</span>
+                        <span style="text-align: center; font-size: 35px; color: #5f7d91;">Dúvidas frequentes</span>
+                    </div>
+                    <div class="container-duvidas">
+                        <div class="duvidas left">
+                            <div class="card-duvida-frequente">
+                                <span class="title-duvida"><strong>1.</strong> O que é o Empréstimo com antecipação do
+                                    FGTS?</span>
+                                <span class="material-icons" style="color: #fcb813;">keyboard_arrow_down</span>
+                            </div>
+
+                            <div class="card-duvida-frequente">
+                                <span class="title-duvida"><strong>2.</strong> Quem pode contratar?</span>
+                                <span class="material-icons" style="color: #fcb813;">keyboard_arrow_down</span>
+                            </div>
+
+                            <div class="card-duvida-frequente">
+                                <span class="title-duvida"><strong>3.</strong> Qual a taxa de juros da operação?</span>
+                                <span class="material-icons" style="color: #fcb813;">keyboard_arrow_down</span>
+                            </div>
+
+                            <div class="card-duvida-frequente">
+                                <span class="title-duvida"><strong>4.</strong> A operação exige algum tipo de avaliação
+                                    de crédito?</span>
+                                <span class="material-icons" style="color: #fcb813;">keyboard_arrow_down</span>
+                            </div>
+                        </div>
+                        <div class="duvidas right">
+                            <div class="card-duvida-frequente">
+                                <span class="title-duvida"><strong>5.</strong> Tenho que ter conta em qual banco para
+                                    receber?</span>
+                                <span class="material-icons" style="color: #fcb813;">keyboard_arrow_down</span>
+                            </div>
+
+                            <div class="card-duvida-frequente">
+                                <span class="title-duvida"><strong>6.</strong> Como é feito o pagamento das
+                                    parcelas?</span>
+                                <span class="material-icons" style="color: #fcb813;">keyboard_arrow_down</span>
+                            </div>
+
+                            <div class="card-duvida-frequente">
+                                <span class="title-duvida"><strong>7.</strong> Se for demitido, perco o direito do
+                                    resgate?</span>
+                                <span class="material-icons" style="color: #fcb813;">keyboard_arrow_down</span>
+                            </div>
+
+                            <div class="card-duvida-frequente">
+                                <span class="title-duvida"><strong>8.</strong> Consigo antecipar todo o meu saldo do
+                                    FGTS?</span>
+                                <span class="material-icons" style="color: #fcb813;">keyboard_arrow_down</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <div style="width: 100%; background-color: #f9f9fa; display: flex; justify-content: center;">
+                <a href="https://api.whatsapp.com/send?phone=555139338465" target="_blank">
+                    <button
+                        style="padding: 10px 40px; background-color: #29c38b; transform: translate(0, -50%); display: flex; justify-content: center; align-items: center; border: none; border-radius: 5px;">
+                        <img src="/image/whatsapp-icon.png" style="width: 40px;">
+                        <span style="font-size: 20px; color: white;">Fale conosco</span>
+                    </button>
+                </a>
+            </div>
+
+            <div
+                style="padding: 50px 0 130px 0; width: 100%; background-color: #f9f9fa; display: flex; justify-content: center; align-items: center;">
+                <div class="container-avaliacoes full-largura">
+
+
+                    <div class="container-o-que-dizem-sobre-nos">
+                        <div class="line" style="background-color: #fcb813; margin: 10px 0; min-width: 50px;"></div>
+                        <div style="font-size: 40px; color: #5f7d91;">O que dizem</div>
+                        <div style="font-size: 40px; color: #5f7d91;">da gente.</div>
+
+                        <div style="color: rgb(49, 49, 49); font-size: 20px; margin-top: 10px;">
+                            A Seguir os depoimentos de nossos clientes após
+                        </div>
+                        <div style="font-size: 20px; color: rgb(49, 49, 49);">
+                            conseguirem a antecipação do FGTS.
+                        </div>
+                    </div>
+                    <div class="card-avaliacao">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <div style="width: 70%; display: flex; justify-content: flex-start;">
+                                <div class="circle-image man"></div>
+                                <div
+                                    style="margin-left: 10px; display: flex; flex-direction: column; justify-content: center;">
+                                    <span style="color: #187896;">Renan Garcia</span>
+                                    <span style="color: #fcb813;">Recepcionista</span>
+                                </div>
+                            </div>
+                            <div style="width: 30%; display: flex; justify-content: center;">
+                                <img src="/image/quotes.png">
+                            </div>
+                        </div>
+                        <div style="display: flex; margin: 10px 0;">
+                            <span class="material-icons" style="color: #fcb813;">
+                                star_rate
+                            </span>
+                            <span class="material-icons" style="color: #fcb813;">
+                                star_rate
+                            </span>
+                            <span class="material-icons" style="color: #fcb813;">
+                                star_rate
+                            </span>
+                            <span class="material-icons" style="color: #fcb813;">
+                                star_rate
+                            </span>
+                            <span class="material-icons" style="color: #fcb813;">
+                                star_rate
+                            </span>
+                        </div>
+                        <div>
+                            <p class="paragrafo-avaliacao">A antecipação do FGTS me ajudou para ca compra do meu
+                                primeiro carro. Fui atendida muito
+                                bem e o processo foi rápido e fácil. Fica aqui meu agradecimento!</p>
+                        </div>
+                    </div>
+
+                    <div class="card-avaliacao">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <div style="width: 70%; display: flex; justify-content: flex-start;">
+                                <div class="circle-image woman"></div>
+                                <div
+                                    style="margin-left: 10px; display: flex; flex-direction: column; justify-content: center;">
+                                    <span style="color: #187896;">Gabriela Santos</span>
+                                    <span style="color: #fcb813;">Advogada</span>
+                                </div>
+                            </div>
+                            <div style="width: 30%; display: flex; justify-content: center;">
+                                <img src="/image/quotes.png">
+                            </div>
+                        </div>
+                        <div style="display: flex; margin: 10px 0;">
+                            <span class="material-icons" style="color: #fcb813;">
+                                star_rate
+                            </span>
+                            <span class="material-icons" style="color: #fcb813;">
+                                star_rate
+                            </span>
+                            <span class="material-icons" style="color: #fcb813;">
+                                star_rate
+                            </span>
+                            <span class="material-icons" style="color: #fcb813;">
+                                star_rate
+                            </span>
+                            <span class="material-icons" style="color: #fcb813;">
+                                star_rate
+                            </span>
+                        </div>
+                        <div>
+                            <p class="paragrafo-avaliacao">Só consegui finalmente marcar o meu casamento graças a Tem
+                                Soluções que disponibilizou o
+                                meu crédito antecipado! Apenas gratidão por todo serviço.</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <div
+                style="margin-bottom: -30px; width: 100%; background-color: #f9f9fa; display: flex; justify-content: center;">
+                <div class="simular-saldo-fgts contato-wpp full-largura-simular-wpp">
+                    <div class="titulos-simular-wpp" style="display: flex; flex-direction: column;">
+                        <span style="color: white;
+                    font-size: 30px;
+                    width: 350px;">Simule pelo Whatsapp!</span>
+                        <span style="font-size: 20px; color: white;">Seja atendido por nossa equipe e consiga seu
+                            empréstimo consignado</span>
+                    </div>
+
+                    <div style="display: flex;">
+                        <div class="input-valor-fgts"
+                            style="box-shadow: 0 0 10px 10px rgba(128, 128, 128, 0.13); background-color: white; width: 250px; height: 40px; padding: 0 10px; border: 1px solid rgba(56, 56, 56, 0.452); border-radius: 5px 0 0 5px; border-right: none; display: flex; justify-content: space-between; align-items: center;">
+                            <span
+                                style="margin-right: 20px; font-weight: 300; width: 5%; color: #5f7d91; font-size: 20px;">R$</span>
+                            <input type="text"
+                                style="font-size: 20px; width: 85%; border: none; outline: none; height: 90%;"
+                                placeholder="Ex.: 0,00">
+                        </div>
+                        <button style="color: white;
+                        background-color: #29c38b;
+                        width: 120px;
+                        height: 42px;
+                        font-size: 19px;
+                        border-radius: 0 5px 5px 0;
+                        box-shadow: 0 0 3px 3px rgba(128, 128, 128, 0.13);
+                        cursor: pointer;
+                        border: none;">Simular</button>
+                    </div>
+                </div>
+            </div>
+
+            <div style="width: 100%; background-color: #f9f9fa; display: flex; justify-content: center;">
+                <div class="full-largura container-footer-detalhes">
+                    <div class="coluna-footer full-largura-detalhes">
+                        <span class="footer-title">Sobre nós</span>
+                        <span class="footer-item-list">A VIP Promotora não é uma instituição financeira e não realiza
+                            operações de crédito diretamente.</span>
+                    </div>
+                    <div class="coluna-footer full-largura-detalhes">
+                        <span class="footer-title">Site Map</span>
+                        <span class="footer-item-list">Vantagens</span>
+                        <span class="footer-item-list">Como obter</span>
+                        <span class="footer-item-list">FAQ</span>
+                        <span class="footer-item-list"><strong>Políticas de Privacidade</strong></span>
+                    </div>
+                    <div class="coluna-footer full-largura-detalhes">
+                        <span class="footer-title">Fale Conosco</span>
+                        <span class="footer-item-list">(51) 3478-9864</span>
+                        <span class="footer-item-list">sac@temsolucoes.com.br</span>
+                    </div>
+                    <div class="coluna-footer full-largura-detalhes">
+                        <span class="footer-title">Siga nós</span>
+                        <span class="footer-item-list">Vantagens</span>
+                    </div>
+                </div>
+            </div>
+
+            <div
+                style="width: 100%; min-height: 200px; background-color: #f9f9fa; display: flex; justify-content: center;">
+                <div class="full-largura"
+                    style=" display: flex; justify-content: center; flex-direction: column; padding: 20px;">
+                    <div class="divider"></div>
+                    <div
+                        style="width: 100%; padding: 0 15px; margin: 20px 0; display: flex; justify-content: space-between; align-items: center;">
+                        <img class="img-logo" src="/image/tem-logo.png">
+                        <span>&#169; Copyright Tem Soluções de Crédito 2022 | All rights reserved</span>
+                    </div>
+                    <div
+                        style="width: 100%; padding: 20px 0; box-sizing: border-box; text-align: left; color: #4d4d4d; font-size: 14px;">
+                        A Tem Soluções Financeiras não é uma instituição financeira e não realiza operações de crédito
+                        diretamente.
+                        A Tem Soluções Financeiras é uma plataforma digital que atua como correspondente bancário para
+                        facilitar o processo de contratação de empréstimos.
+                        Como correspondente bancário, seguimos as diretrizes do Banco Central do Brasil, nos termos da
+                        Resolução nº. 3.954, de 24 de fevereiro de 2011.
+                        Toda avaliação de crédito será realizada conforme a política de crédito da Instituição
+                        Financeira escolhida pelo usuário.
+                        Antes da contratação de qualquer serviço através de nossos parceiros, você receberá todas as
+                        condições e informações relativas ao produto a ser contrato,
+                        de forma completa e transparente. As taxas de juros, margem consignável e prazo de pagamento
+                        praticados nos empréstimos com consignação em pagamento dos
+                        Governos Federais, Estaduais e Municipais, Forças armadas e INSS observam as determinações de
+                        cada convênio, bem como a política de crédito da
+                        instituição financeira a ser utilizada. Tem Soluções Financeiras - CNPJ 43.061.535/0001-85 |
+                        Endereço: Av. José Loureiro da Silva 1600 sala 706
+                    </div>
+                </div>
+            </div>
+
+        </main>
+        <footer></footer>
+    </section>
+</body>
+
+</html>
