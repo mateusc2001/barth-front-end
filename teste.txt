@@ -1,0 +1,33 @@
+post<any>('http://localhost:1900/add/user', novoUsuario); // feito
+put<any>(`http://localhost:1900/user/${userId}`, novoUsuario); // feito
+get<any[]>(`http://localhost:1900/users/page/${pageOptions.pageIndex}/count/${pageOptions.pageSize}`); // feito
+get<PaginatedObjectModel<RegistroCaixaModel>>(`http://localhost:1900/registro/caixa/page/${pageOptionsModel.pageIndex}/count/${pageOptionsModel.pageSize}`); // feito
+post<RegistroCaixaModel>(`http://localhost:1900/add/registro/caixa`, novoRegistroCaixa); // feito
+get(`http://localhost:1900/pagar/fixas/page/${pageOptions.pageIndex}/count/${pageOptions.pageSize}`); // feito
+get(`http://localhost:1900/pagar/variaveis/page/${pageOptions.pageIndex}/count/${pageOptions.pageSize}`); // feito
+post(`http://localhost:1900/pagar`, request); // feito
+patch(`http://localhost:1900/pagar/finalizar/${id}`, {}); // feito
+get(`http://localhost:1900/receber/fixas/page/${pageOptions.pageIndex}/count/${pageOptions.pageSize}`); // feito
+get(`http://localhost:1900/receber/variaveis/page/${pageOptions.pageIndex}/count/${pageOptions.pageSize}`); // feito
+post(`http://localhost:1900/receber`, request); // feito
+patch(`http://localhost:1900/receber/finalizar/${id}`, {}); // feito
+get<RegistroResponse>(`http://localhost:1900/registros/pendentes/page/${pageOptions.pageIndex}/count/${pageOptions.pageSize}`); // feito
+put<any>(`http://localhost:1900/registrar-transacao`, registro); // feito
+get(`http://localhost:1900/user/${this.usuarioLogado.id}`)  // feito
+get(`http://localhost:1900/registros`) // feito
+post('http://localhost:1900/logar', obj); // feito
+post(`http://localhost:1900/multiplas/transferencias`, request) // feito
+get<any[]>('http://localhost:1900/users'); // feito
+post<any[]>('http://localhost:1900/registros', registroRequest); // feito
+
+
+get(`http://localhost:1900/barth/metricas/${this.usuarioLogado.id}`)
+get(`http://localhost:1900/registros/por-usuarios/page/${pageOptions.pageIndex}/count/${pageOptions.pageSize}?users=${userIds[0]}&users=${userIds[1]}`);
+get('http://localhost:1900/vencimento-hoje');
+get(`http://localhost:1900/contas/pagar/ativas`)
+get(`http://localhost:1900/contas/receber/ativas`)
+
+get(`http://localhost:1900/carros`)
+post(`http://localhost:1900/carros/add/despesa`, request)
+get(`http://localhost:1900/carros`)
+post(`http://localhost:1900/carros/add/despesa`, request)
