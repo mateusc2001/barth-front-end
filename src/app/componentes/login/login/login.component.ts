@@ -24,8 +24,8 @@ export class LoginComponent implements OnInit {
 
   public hide = true;
   public formGroupLogin: FormGroup = this.formBuilder.group({
-    txtUsuario: new FormControl('renata'),
-    txtSenha: new FormControl('123')
+    txtUsuario: new FormControl(''),
+    txtSenha: new FormControl('')
   });
   constructor(
     private formBuilder: FormBuilder,
