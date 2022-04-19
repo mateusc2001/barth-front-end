@@ -9,6 +9,7 @@ import {ContasPagarComponent} from "./componentes/contas-pagar/contas-pagar.comp
 import {ContasReceberComponent} from "./componentes/contas-receber/contas-receber.component";
 import { CaixaComponent } from './componentes/caixa/caixa.component';
 import { DespesasAutomovelComponent } from './componentes/despesas-automovel/despesas-automovel.component';
+import { InfoDevComponent } from './componentes/info-dev/info-dev.component';
 
 const routes: Routes = [
   {
@@ -51,6 +52,10 @@ const routes: Routes = [
   {
     path: 'despesas-auto',
     component: DespesasAutomovelComponent
+  },
+  {
+    path: 'info-dev',
+    component: InfoDevComponent
   }
 ];
 

@@ -1,7 +1,8 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {MatSidenav} from '@angular/material/sidenav';
-import {Router} from '@angular/router';
-import {TipoContaEnum} from "./enum/tipo-conta.enum";
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatSidenav } from '@angular/material/sidenav';
+import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
+import { TipoContaEnum } from "./enum/tipo-conta.enum";
 
 @Component({
   selector: 'app-root',
@@ -48,11 +49,18 @@ export class AppComponent implements OnInit {
       routerLink: '/caixa'
     },
     {
-      name: 'Despesas de carros',
-      iconName: 'directions_car',
-      routerLink: '/despesas-auto'
+      name: 'Info dev',
+      iconName: 'code',
+      routerLink: '/info-dev'
     }
   ];
+
+  // ,
+  //   {
+  //     name: 'Despesas de carros',
+  //     iconName: 'directions_car',
+  //     routerLink: '/despesas-auto'
+  //   }
 
   title = 'barth-automoveis-financeiro';
   public url: any = 'https://isobarscience.com/wp-content/uploads/2020/09/default-profile-picture1.jpg';
@@ -66,7 +74,9 @@ export class AppComponent implements OnInit {
   @ViewChild('drawer')
   drawer!: MatSidenav;
 
+  public prod: boolean = false;
   ngOnInit(): void {
+    this.prod = environment.production;
     const obj = window.localStorage.getItem('ls.user');
     if (!!obj) {
       this.usuarioLogado = JSON.parse(obj);
@@ -100,7 +110,7 @@ export class AppComponent implements OnInit {
       contasPagarHoje: 1,
       contasReceberHoje: 2
     };
-    const res =  tipoContaEnum === TipoContaEnum.A_RECEBER ? response.contasReceberHoje : response.contasPagarHoje;
+    const res = tipoContaEnum === TipoContaEnum.A_RECEBER ? response.contasReceberHoje : response.contasPagarHoje;
     // console.log(res)
     return res;
   }

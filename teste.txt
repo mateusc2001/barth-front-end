@@ -19,11 +19,11 @@ post('http://localhost:1900/logar', obj); // feito
 post(`http://localhost:1900/multiplas/transferencias`, request) // feito
 get<any[]>('http://localhost:1900/users'); // feito
 post<any[]>('http://localhost:1900/registros', registroRequest); // feito
+get('http://localhost:1900/vencimento-hoje'); // feito
+get(`http://localhost:1900/barth/metricas/${this.usuarioLogado.id}`) // feito pela metade
 
 
-get(`http://localhost:1900/barth/metricas/${this.usuarioLogado.id}`)
 get(`http://localhost:1900/registros/por-usuarios/page/${pageOptions.pageIndex}/count/${pageOptions.pageSize}?users=${userIds[0]}&users=${userIds[1]}`);
-get('http://localhost:1900/vencimento-hoje');
 get(`http://localhost:1900/contas/pagar/ativas`)
 get(`http://localhost:1900/contas/receber/ativas`)
 

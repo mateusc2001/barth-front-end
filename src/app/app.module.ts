@@ -50,6 +50,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { ModalRegistrosEntreClientesComponent } from './componentes/home/modais/modal-registros-entre-clientes/modal-registros-entre-clientes.component';
 import { DespesasAutomovelComponent } from './componentes/despesas-automovel/despesas-automovel.component';
 import { ModalCadastroDespesaVeiculoComponent } from './componentes/despesas-automovel/modais/modal-cadastro-despesa-veiculo/modal-cadastro-despesa-veiculo.component';
+import { InfoDevComponent } from './componentes/info-dev/info-dev.component';
 
 const maskConfig: Partial<IConfig> = {
   validation: true,
@@ -75,7 +76,8 @@ const maskConfig: Partial<IConfig> = {
     ModalNovoRegistroCaixaComponent,
     ModalRegistrosEntreClientesComponent,
     DespesasAutomovelComponent,
-    ModalCadastroDespesaVeiculoComponent
+    ModalCadastroDespesaVeiculoComponent,
+    InfoDevComponent
   ],
   imports: [
     BrowserModule,

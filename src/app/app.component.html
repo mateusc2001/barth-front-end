@@ -8,6 +8,7 @@
         </button>
         <span>Barth automóveis</span>
         <span class="example-spacer"></span>
+        <mat-icon *ngIf="prod" style="color: yellow;">adb</mat-icon>
         <button mat-icon-button class="example-icon" (click)="logout()" (click)="drawer.close()"
           aria-label="Example icon-button with share icon">
           <mat-icon>logout</mat-icon>
