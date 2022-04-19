@@ -65,6 +65,6 @@ export class TabelaContasFixasComponent implements OnInit, OnChanges {
   }
 
   public getDayDate(date: string): number {
-    return (new Date(date)).getDay();
+    return (new Date(date)).getDate();
   }
 }

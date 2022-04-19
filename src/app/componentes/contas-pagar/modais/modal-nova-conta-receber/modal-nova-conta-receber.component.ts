@@ -36,7 +36,8 @@ export class ModalNovaContaReceberComponent implements OnInit {
       descricao: this.formGroupCadastroCliente.controls.txtDescricao.value,
       valor: this.formGroupCadastroCliente.controls.txtValor.value,
       idUsuario: this.formGroupCadastroCliente.controls.txtIdUsuario.value,
-      contaFixa: this.formGroupCadastroCliente.controls.contaFixa.value
+      contaFixa: this.formGroupCadastroCliente.controls.contaFixa.value,
+      pagar: false
     };
   }
 

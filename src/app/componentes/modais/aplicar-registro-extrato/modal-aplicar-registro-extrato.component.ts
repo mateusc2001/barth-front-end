@@ -5,6 +5,8 @@ import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@ang
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Builder } from 'builder-pattern';
 import { BrowserStack } from 'protractor/built/driverProviders';
+import { switchMap } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 import { RegistroTransacaoModel } from './model/registro-transacao.model';
 import { TransacaoDeRegistroModel } from './model/transacao-de-registro.model';
 import { ModalAplicarRegistroExtratoService } from './service/modal-aplicar-registro-extrato.service';
@@ -29,18 +31,19 @@ export class ModalAplicarRegistroExtratoComponent implements OnInit {
       value: 2
     },
     {
-      text: 'Despesa de carro',
-      value: 3
-    },
-    {
-      text: 'Transferir valor',
-      value: 4
+      text: 'Comissão',
+      value: 6
     },
     {
       text: 'Multiplas transferencias',
       value: 5
     }
   ];
+
+  // {
+  //   text: 'Despesa de carro',
+  //   value: 3
+  // }
 
   public contas: any = [];
   public carros: any = [];
@@ -83,9 +86,16 @@ export class ModalAplicarRegistroExtratoComponent implements OnInit {
 
     this.novaMultiplaTransferenciaForm = this.formBuilder.group({
       usuarioDestino: this.formBuilder.control(null, Validators.required),
-      descricao: this.formBuilder.control('', Validators.required),
-      valor: this.formBuilder.control(0, Validators.required)
+      descricao: this.formBuilder.control(''),
+      valor: this.formBuilder.control(0, [Validators.required, Validators.min(1)])
     });
+  }
+
+  public validarTotalTransacoes() {
+    const response = this.multiplasTransferencias.controls.transferencias.value
+      .reduce((acc: any, cur: any) => acc =+ cur.valor, 0);
+      console.log(response)
+      return response > this.data.valor;
   }
 
   get transferencias(): FormArray {
@@ -121,7 +131,7 @@ export class ModalAplicarRegistroExtratoComponent implements OnInit {
   ngOnInit(): void {
     this.modalAplicarRegistroExtratoService.buscarUsuarios()
       .subscribe(res => this.destinos = res);
-    this.httpClient.get(`http://localhost:1900/registros`)
+    this.httpClient.get(`${environment.financeiro_service_url}/registro`)
       .subscribe(res => {
         this.registros = res;
       });
@@ -152,12 +162,12 @@ export class ModalAplicarRegistroExtratoComponent implements OnInit {
   }
 
   public buscarContasPagar(): void {
-    this.httpClient.get(`http://localhost:1900/contas/pagar/ativas`)
+    this.httpClient.get(`${environment.financeiro_service_url}/conta/ativas?contaPagar=true&contaFixa=false`)
       .subscribe(res => this.contas = res);
   }
 
   public buscarContasReceber(): void {
-    this.httpClient.get(`http://localhost:1900/contas/receber/ativas`)
+    this.httpClient.get(`${environment.financeiro_service_url}/conta/ativas?contaPagar=false&contaFixa=false`)
       .subscribe(res => this.contas = res);
   }
 
@@ -170,13 +180,21 @@ export class ModalAplicarRegistroExtratoComponent implements OnInit {
     this.dialogRef.close();
   }
 
+  public filterRegistrosComissionados() {
+    return this.registros
+      .filter((item: any) =>
+        !!item.transacoes
+        && !!item.transacoes.comissao
+        && !item.transacoes.comissao.finalizado);
+  }
+
   public getRegistrosComisionados(): any {
-    return this.registros.filter((item: any) => !!item.transacao && item.transacao.geraComissao)
+    return this.filterRegistrosComissionados()
       .map((item: any) => {
-        if (!!item.descricaoPessoal && item.descricaoPessoal.length > 0) {
-          return item.id + ' | ' + item.descricaoPessoal;
-        } else {
+        if (!!item.descricao && item.descricao.length > 0) {
           return item.id + ' | ' + item.descricao;
+        } else {
+          return item.id + ' | ' + item.documento;
         }
       });
   }
@@ -213,31 +231,55 @@ export class ModalAplicarRegistroExtratoComponent implements OnInit {
           .subscribe(res => console.log(res));
         break;
       case 5:
-        const request2 = {
+        const request2: any = {
           usuarioOrigem: this.multiplasTransferencias.controls.usuarioOrigem.value,
-          valorTotal: this.data.valor,
-          transferencias: this.transferencias.value.map((item: any) => {
+          valorDescontarUsuarioOrigem: this.data.valor * -1,
+          usuariosDestino: this.transferencias.value.map((item: any) => {
             return {
               descricao: item.controls.descricao.value,
-              usuarioDestino: item.controls.usuarioDestino.value,
-              valor: item.controls.valor.value
+              idUsuario: item.controls.usuarioDestino.value,
+              valor: this.data.valor > 0 ? item.controls.valor.value : item.controls.valor.value * -1
             };
           })
         };
 
-        this.httpClient.post(`http://localhost:1900/multiplas/transferencias`, request2)
-          .subscribe(() => {});
+        if (this.data.geraComissao) {
+          request2.comissao = {
+            porcentagemComissao: this.data.porcentagemComissao,
+            valorComissao: this.data.valor * (this.data.porcentagemComissao / 100)
+          }
+        }
+        const idRegistro = this.data.id;
+        this.httpClient.patch(`${environment.financeiro_service_url}/registro/${idRegistro}/transacao`, request2)
+          .subscribe(() => { });
+        break;
+
+      case 6:
+        const idReg = this.getIdRegistroComissaoSelecionado();
+        this.httpClient.patch(`${environment.financeiro_service_url}/registro/finalizar/comissao/${idReg}`, {})
+          .subscribe(() => { });
         break;
     }
   }
 
+  public getIdRegistroComissaoSelecionado() {
+    if (this.pagarComissao == null) return;
+    return this.filterRegistrosComissionados()[this.pagarComissao].id;
+  }
+
+  public setFullValue() {
+    this.novaMultiplaTransferenciaForm.controls.valor.setValue(this.data.valor);
+  }
+
   public finalizarContaReceber(idConta: number): void {
-    this.httpClient.patch(`http://localhost:1900/receber/finalizar/${idConta}`, {})
+    this.httpClient.patch(`${environment.financeiro_service_url}/conta/finalizar/${idConta}`, {})
+      .pipe(switchMap(() => this.httpClient.patch(`${environment.financeiro_service_url}/registro/${this.data.id}/transacao`, {})))
       .subscribe(res => { });
   }
 
   public finalizarContaPagar(idConta: number): void {
-    this.httpClient.patch(`http://localhost:1900/pagar/finalizar/${idConta}`, {})
+    this.httpClient.patch(`${environment.financeiro_service_url}/conta/finalizar/${idConta}`, {})
+      .pipe(switchMap(() => this.httpClient.patch(`${environment.financeiro_service_url}/registro/${this.data.id}/transacao`, {})))
       .subscribe(res => { });
   }
 

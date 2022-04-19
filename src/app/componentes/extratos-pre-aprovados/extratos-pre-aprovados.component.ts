@@ -10,7 +10,7 @@ import { PageOptionsMapper } from './mapper/page-options.mapper';
 import { PageOptionsModel } from './model/page-options.model';
 import { RegistroDataModel } from './model/registro-data.model';
 import { PlanosService } from './services/planos.service';
-import { skipWhile } from "rxjs/operators";
+import { skipWhile, switchMap } from "rxjs/operators";
 
 @Component({
   selector: 'app-extratos-pre-aprovados',
@@ -52,13 +52,16 @@ export class ExtratosPreAprovadosComponent implements OnInit {
 
   public registrarTransacao(registroTransacaoModel: RegistroTransacaoModel): void {
     this.planosService.registrarTransacao(registroTransacaoModel)
-      .subscribe(res => this.atualizarPlanos());
+      .pipe(switchMap(() => this.planosService.buscarPlanos(this.pageOptions)))
+      .subscribe(res => {
+        this.dataSource.data = res.data;
+        this.pageOptions.length = res.totalResults;
+      });
   }
 
   public atualizarPlanos(): void {
     this.planosService.buscarPlanos(this.pageOptions)
       .subscribe(res => {
-        // console.log(res);
         this.dataSource.data = res.data;
         this.pageOptions.length = res.totalResults;
       });

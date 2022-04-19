@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { skipWhile } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 import { ModalRegistrosEntreClientesComponent } from './modais/modal-registros-entre-clientes/modal-registros-entre-clientes.component';
 import { HomeService } from './service/home.service';
 
@@ -30,17 +31,17 @@ export class HomeComponent implements OnInit {
     const user = window.localStorage.getItem('ls.user');
     if (!!user) {
       this.usuarioLogado = JSON.parse(user);
-      this.httpClient.get(`http://localhost:1900/user/${this.usuarioLogado.id}`)
+      this.httpClient.get(`${environment.financeiro_service_url}/usuario/${this.usuarioLogado.id}`)
         .subscribe(res => {
           this.usuarioLogado = res;
           window.localStorage.setItem('ls.user', JSON.stringify(res));
         });
-      this.httpClient.get(`http://localhost:1900/barth/metricas/${this.usuarioLogado.id}`)
+      this.httpClient.get(`${environment.financeiro_service_url}/conta/metricas/${this.usuarioLogado.id}`)
         .subscribe(res => {
           this.metricas = res;
         });
 
-      this.httpClient.get(`http://localhost:1900/registros`)
+      this.httpClient.get(`${environment.financeiro_service_url}/registro`)
         .subscribe(res => {
           this.registros = res;
         });
@@ -74,11 +75,11 @@ export class HomeComponent implements OnInit {
   }
 
   public getRegistrosComissionados(): any {
-    return this.registros.filter((item: any) => !!item.transacao && item.transacao.geraComissao);
+    return this.registros.filter((item: any) => !!item.transacoes && item.transacoes.comissao);
   }
 
   public getStatusComissao(registro: any): string {
-    return registro.transacao.finalizado ? 'Finalizado' : 'Pendente';
+    return registro.transacoes.comissao.finalizado ? 'Finalizado' : 'Pendente';
   }
 
 }
