@@ -29,6 +29,9 @@ export class ContasPagarComponent implements OnInit {
   public contasFixas = [];
   // public contasVariaveis = [];
 
+  public loadingVariaveis: boolean = false;
+  public loadingFixas: boolean = false;
+
   openDialogNovaConta(registro: any): void {
     const dialogRef = this.dialog.open(ModalNovaContaPagarComponent, {
       width: '450px',
@@ -62,21 +65,34 @@ export class ContasPagarComponent implements OnInit {
     this.atualizarPlanos();
   }
 
+  public atualizarLoadingVariaveis(status: boolean) {
+    this.loadingVariaveis = status;
+  }
+
+  public atualizarLoadingFixas(status: boolean) {
+    this.loadingFixas = status;
+  }
+
   public registrarTransacao(novaContaPagar: any): void {
     this.contasPagarRestService.novaContaPagar(novaContaPagar)
       .subscribe(() => this.atualizarPlanos());
   }
 
   public atualizarPlanos(): void {
-    this.contasPagarRestService.getContasPagarFixas(this.pageOptionsContasFixas)
+    this.atualizarLoadingFixas(true);
+    this.atualizarLoadingVariaveis(true);
+    this.contasPagarRestService.getContasPagarVariaveis(this.pageOptionsContasVariaveis)
       .pipe(tap(res => {
-        this.contasFixas = res.data;
-        this.pageOptionsContasFixas.length = res.totalResults;
-      }))
-      .pipe(switchMap(() => this.contasPagarRestService.getContasPagarVariaveis(this.pageOptionsContasVariaveis)))
-      .subscribe(res => {
+        this.atualizarLoadingVariaveis(false);
         this.dataSource.data = res.data;
         this.pageOptionsContasVariaveis.length = res.totalResults;
+      }))
+      .pipe(switchMap(() => this.contasPagarRestService.getContasPagarFixas(this.pageOptionsContasFixas)))
+      .subscribe(res => {
+
+        this.atualizarLoadingFixas(false);
+        this.contasFixas = res.data;
+        this.pageOptionsContasFixas.length = res.totalResults;
       });
   }
 

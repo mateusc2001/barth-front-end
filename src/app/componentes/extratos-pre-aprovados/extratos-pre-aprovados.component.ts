@@ -11,6 +11,7 @@ import { PageOptionsModel } from './model/page-options.model';
 import { RegistroDataModel } from './model/registro-data.model';
 import { PlanosService } from './services/planos.service';
 import { skipWhile, switchMap } from "rxjs/operators";
+import { ModalConfirmacaoExclusaoComponent } from '../modais/modal-confirmacao-exclusao/modal-confirmacao-exclusao.component';
 
 @Component({
   selector: 'app-extratos-pre-aprovados',
@@ -22,6 +23,7 @@ export class ExtratosPreAprovadosComponent implements OnInit {
   dataSource = new MatTableDataSource<RegistroDataModel>([]);
   pageOptions: any;
 
+  public loading: boolean = false;
 
   openDialog(registro: any): void {
     const dialogRef = this.dialog.open(ModalAplicarRegistroExtratoComponent, {
@@ -34,9 +36,24 @@ export class ExtratosPreAprovadosComponent implements OnInit {
       .subscribe((result: RegistroTransacaoModel) => this.registrarTransacao(result));
   }
 
+  openDialogRemover(registro: any): void {
+    const dialogRef = this.dialog.open(ModalConfirmacaoExclusaoComponent, {
+      width: '550px',
+      data: registro
+    });
+
+    dialogRef.afterClosed()
+      .pipe(skipWhile((res) => !res))
+      .subscribe((result: RegistroTransacaoModel) => this.removerTransacao(registro.id));
+  }
+
 
   constructor(private planosService: PlanosService,
     private dialog: MatDialog) {
+  }
+
+  public updateLoading(status: boolean) {
+    this.loading = status;
   }
 
   ngOnInit(): void {
@@ -51,17 +68,35 @@ export class ExtratosPreAprovadosComponent implements OnInit {
   }
 
   public registrarTransacao(registroTransacaoModel: RegistroTransacaoModel): void {
+    this.updateLoading(true);
+
     this.planosService.registrarTransacao(registroTransacaoModel)
       .pipe(switchMap(() => this.planosService.buscarPlanos(this.pageOptions)))
       .subscribe(res => {
+        this.updateLoading(false);
+
+        this.dataSource.data = res.data;
+        this.pageOptions.length = res.totalResults;
+      });
+  }
+
+  public removerTransacao(idTransacao: any): void {
+    this.updateLoading(true);
+    this.planosService.removerTransacao(idTransacao)
+      .pipe(switchMap(() => this.planosService.buscarPlanos(this.pageOptions)))
+      .subscribe(res => {
+        this.updateLoading(false);
+
         this.dataSource.data = res.data;
         this.pageOptions.length = res.totalResults;
       });
   }
 
   public atualizarPlanos(): void {
+    this.updateLoading(true);
     this.planosService.buscarPlanos(this.pageOptions)
       .subscribe(res => {
+        this.updateLoading(false);
         this.dataSource.data = res.data;
         this.pageOptions.length = res.totalResults;
       });

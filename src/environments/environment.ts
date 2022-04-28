@@ -5,7 +5,8 @@
 export const environment = {
   production: false,
   financeiro_service_url: 'http://localhost:2020',
-  converter_service_url: 'http://localhost:8080'
+  converter_service_url: 'http://localhost:8080',
+  version: '9.4.2-1'
 };
 
 /*

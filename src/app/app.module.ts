@@ -51,6 +51,9 @@ import { ModalRegistrosEntreClientesComponent } from './componentes/home/modais/
 import { DespesasAutomovelComponent } from './componentes/despesas-automovel/despesas-automovel.component';
 import { ModalCadastroDespesaVeiculoComponent } from './componentes/despesas-automovel/modais/modal-cadastro-despesa-veiculo/modal-cadastro-despesa-veiculo.component';
 import { InfoDevComponent } from './componentes/info-dev/info-dev.component';
+import { ModalConfirmacaoExclusaoComponent } from './componentes/modais/modal-confirmacao-exclusao/modal-confirmacao-exclusao.component';
+import { DetalheContaFixaComponent } from './componentes/modais/detalhe-conta-fixa/detalhe-conta-fixa.component';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 const maskConfig: Partial<IConfig> = {
   validation: true,
@@ -77,7 +80,9 @@ const maskConfig: Partial<IConfig> = {
     ModalRegistrosEntreClientesComponent,
     DespesasAutomovelComponent,
     ModalCadastroDespesaVeiculoComponent,
-    InfoDevComponent
+    InfoDevComponent,
+    ModalConfirmacaoExclusaoComponent,
+    DetalheContaFixaComponent
   ],
   imports: [
     BrowserModule,
@@ -112,7 +117,8 @@ const maskConfig: Partial<IConfig> = {
     MatButtonModule,
     MatFormFieldModule,
     MatNativeDateModule,
-    MatRadioModule
+    MatRadioModule,
+    MatExpansionModule
   ],
   providers: [
     ExcelConversorRestService,

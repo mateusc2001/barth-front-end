@@ -23,6 +23,12 @@ export class CaixaComponent implements OnInit {
     this.buscarRegistrosCaixa();
   }
 
+  public loading: boolean = false;
+
+  public atualizarLoading(status: boolean) {
+    this.loading = status;
+  }
+
   public registrosCaixa: any;
   public pageOptions: PageOptionsModel = this.newPagination;
 
@@ -30,8 +36,10 @@ export class CaixaComponent implements OnInit {
   public dataSource: RegistroCaixaModel[] = [];
 
   public buscarRegistrosCaixa(): void {
+    this.atualizarLoading(true);
     this.caixaService.buscarRegistrosCaixa(this.pageOptions)
       .subscribe(res => {
+        this.atualizarLoading(false);
         this.dataSource = res.data;
         this.pageOptions.length = res.totalResults;
       });

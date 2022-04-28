@@ -20,4 +20,8 @@ export class PlanosRestService {
   public registrarTransacao(registro: RegistroTransacaoModel): Observable<any> {
     return this.httpClient.put<any>(`http://localhost:1900/registrar-transacao`, registro);
   }
+
+  public removerTransacao(idRegistro: any) {
+    return this.httpClient.delete<any>(`${environment.financeiro_service_url}/registro/${idRegistro}`);
+  }
 }

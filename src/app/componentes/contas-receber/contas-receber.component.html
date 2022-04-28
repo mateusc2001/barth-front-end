@@ -50,12 +50,20 @@
             (click)="openDialogConfirmarFinalizacao(element.id)">
             <mat-icon class="color-red">done</mat-icon>
           </button>
+
+          <button mat-icon-button type="button" (click)="openDialogDetalhamentoConta(element)">
+            <mat-icon class="color-red">info</mat-icon>
+          </button>
         </td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumnsContasVariaveis"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumnsContasVariaveis;"></tr>
     </table>
+
+    <section style="width: 100%; display: flex; justify-content: center; margin: 20px;">
+      <mat-spinner [diameter]="70" [strokeWidth]="3" *ngIf="loadingVariaveis"></mat-spinner>
+    </section>
 
     <mat-paginator [length]="pageOptionsContasVariaveis.length" [pageSize]="pageOptionsContasVariaveis.pageSize"
       [pageSizeOptions]="[5, 10, 20]" (page)="updatePageOptionsContasVariaveis($event)" showFirstLastButtons>
@@ -108,14 +116,18 @@
 
       <ng-container matColumnDef="acoes">
         <th mat-header-cell *matHeaderCellDef class="aline-items-center">
-          <button mat-icon-button type="button" (click)="openDialogNovaConta()">
+          <!-- <button mat-icon-button type="button" (click)="openDialogNovaConta()">
             <mat-icon class="color-red">add</mat-icon>
-          </button>
+          </button> -->
         </th>
         <td mat-cell *matCellDef="let element" class="aline-items-center">
-          <button mat-icon-button type="button" [disabled]="element.finalizado"
+          <!-- <button mat-icon-button type="button" [disabled]="element.finalizado"
             (click)="openDialogConfirmarFinalizacao(element.id)">
             <mat-icon class="color-red">done</mat-icon>
+          </button> -->
+
+          <button mat-icon-button type="button" (click)="openDialogDetalhamentoConta(element)">
+            <mat-icon class="color-red">info</mat-icon>
           </button>
         </td>
       </ng-container>
@@ -123,6 +135,10 @@
       <tr mat-header-row *matHeaderRowDef="displayedColumnsContasFixas"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumnsContasFixas;"></tr>
     </table>
+
+    <section style="width: 100%; display: flex; justify-content: center; margin: 20px;">
+      <mat-spinner [diameter]="70" [strokeWidth]="3" *ngIf="loadingFixas"></mat-spinner>
+    </section>
 
     <mat-paginator [length]="pageOptionsContasFixas.length" [pageSize]="pageOptionsContasFixas.pageSize"
       [pageSizeOptions]="[5, 10, 20]" (page)="updatePageOptionsContasFixas($event)" showFirstLastButtons>

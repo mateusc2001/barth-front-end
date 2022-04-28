@@ -24,6 +24,10 @@ export class PlanosService {
     return this.planosRestService.registrarTransacao(registroTransacaoModel);
   }
 
+  public removerTransacao(idTransacao: any): Observable<any> {
+    return this.planosRestService.removerTransacao(idTransacao);
+  }
+
   public buildRegistroModel(registroResponse: RegistroResponse): RegistroModel {
     return Builder<RegistroModel>()
       .totalPages(registroResponse.totalPages)

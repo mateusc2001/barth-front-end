@@ -6,8 +6,9 @@ import { PageOptionsModel } from '../extratos-pre-aprovados/model/page-options.m
 import { ModalCadastroClienteComponent } from '../modais/modal-cadastro-cliente/modal-cadastro-cliente.component';
 import { NovoUsuarioModel } from '../modais/modal-cadastro-cliente/model/novo-usuario.model';
 import { CadastroClienteService } from './service/cadastro-cliente.service';
-import {skipWhile} from 'rxjs/operators';
-import {EdicaoUsuarioComponent} from "./modais/edicao-usuario/edicao-usuario.component";
+import { skipWhile } from 'rxjs/operators';
+import { EdicaoUsuarioComponent } from "./modais/edicao-usuario/edicao-usuario.component";
+import { timingSafeEqual } from 'crypto';
 
 @Component({
   selector: 'app-cadastro-cliente',
@@ -22,6 +23,11 @@ export class CadastroClienteComponent implements OnInit {
 
   constructor(private dialog: MatDialog, private cadastroClienteService: CadastroClienteService) { }
 
+  public loading: boolean = false;
+
+  public atualizarLoading(status: boolean) {
+    this.loading = status;
+  }
   ngOnInit(): void {
     this.pageOptions = PageOptionsMapper.pageOptionsBuilder({
       previousPageIndex: 0,
@@ -33,8 +39,10 @@ export class CadastroClienteComponent implements OnInit {
   }
 
   public buscarUsuarios(): void {
+    this.atualizarLoading(true);
     this.cadastroClienteService.buscarUsuariosCadastrados(this.pageOptions)
       .subscribe((res: any) => {
+        this.atualizarLoading(false);
         this.dataSource.data = res.data;
         this.pageOptions.length = res.totalResults;
       });

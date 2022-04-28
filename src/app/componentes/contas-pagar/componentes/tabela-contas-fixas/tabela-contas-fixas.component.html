@@ -60,10 +60,16 @@
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
       <tr class="mat-row" *matNoDataRow style="width: 100%;">
-        <td class="mat-cell" colspan="8" *ngIf="input.value.length > 0" style="text-align: center;">Sem resultados para o filtro "{{input.value}}"</td>
-        <td class="mat-cell" colspan="8" *ngIf="input.value.length == 0"  style="text-align: center;">Sem registros para exibir</td>
+        <td class="mat-cell" colspan="8" *ngIf="input.value.length > 0" style="text-align: center;">Sem resultados para
+          o filtro "{{input.value}}"</td>
+        <td class="mat-cell" colspan="8" *ngIf="input.value.length == 0" style="text-align: center;">Sem registros para
+          exibir</td>
       </tr>
     </table>
+
+    <section style="width: 100%; display: flex; justify-content: center; margin: 20px;">
+      <mat-spinner [diameter]="70" [strokeWidth]="3" *ngIf="loadingFixas"></mat-spinner>
+    </section>
 
     <mat-paginator [length]="pageOptions.length" [pageSize]="pageOptions.pageSize" [pageSizeOptions]="[5, 10, 20]"
       (page)="test($event)" showFirstLastButtons></mat-paginator>

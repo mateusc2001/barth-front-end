@@ -1,0 +1,7 @@
+<h1 mat-dialog-title>Tem certeza de que deseja remover este registro?</h1>
+<span>Obs.: Esta ação é permanente.</span>
+<div mat-dialog-actions class="dialog-actions">
+    <button mat-button [mat-dialog-close]="emitOnClose(false)">Cancelar</button>
+    <button mat-button color="warn" [mat-dialog-close]="emitOnClose(true)"
+        cdkFocusInitial>Remover</button>
+</div>

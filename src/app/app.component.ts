@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
+import { LoginService } from './componentes/login/login/service/login.service';
 import { TipoContaEnum } from "./enum/tipo-conta.enum";
 
 @Component({
@@ -69,7 +70,14 @@ export class AppComponent implements OnInit {
     nomeCompleto: 'Não informado'
   };
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, loginService: LoginService) {
+    setInterval(() => {
+      loginService.getContasComVencimentoHoje()
+        .subscribe(res => {
+          window.localStorage.setItem('ls.contasVencimento', JSON.stringify(res));
+        })
+    }, 30000);;
+  }
 
   @ViewChild('drawer')
   drawer!: MatSidenav;

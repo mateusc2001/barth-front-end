@@ -1,11 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, HostListener, Inject, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Builder } from 'builder-pattern';
 import { BrowserStack } from 'protractor/built/driverProviders';
-import { switchMap } from 'rxjs/operators';
+import { of } from 'rxjs';
+import { skipWhile, switchMap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { RegistroTransacaoModel } from './model/registro-transacao.model';
 import { TransacaoDeRegistroModel } from './model/transacao-de-registro.model';
@@ -47,6 +48,8 @@ export class ModalAplicarRegistroExtratoComponent implements OnInit {
 
   public contas: any = [];
   public carros: any = [];
+
+  public getScreenHeight: any;
 
   public formGroupTipoRegistro: FormGroup;
   public formGroupContaSelecionada: FormGroup;
@@ -93,9 +96,9 @@ export class ModalAplicarRegistroExtratoComponent implements OnInit {
 
   public validarTotalTransacoes() {
     const response = this.multiplasTransferencias.controls.transferencias.value
-      .reduce((acc: any, cur: any) => acc =+ cur.valor, 0);
-      console.log(response)
-      return response > this.data.valor;
+      .reduce((acc: any, cur: any) => acc = + cur.valor, 0);
+    console.log(response)
+    return response > this.data.valor;
   }
 
   get transferencias(): FormArray {
@@ -124,6 +127,11 @@ export class ModalAplicarRegistroExtratoComponent implements OnInit {
     this.novaMultiplaTransferenciaForm.reset();
   }
 
+  @HostListener('window:resize', ['$event'])
+  onWindowResize() {
+    this.getScreenHeight = window.innerHeight;
+  }
+
   logarCoisas() {
     console.log(this.multiplasTransferencias.controls.transferencias.value);
   }
@@ -135,6 +143,8 @@ export class ModalAplicarRegistroExtratoComponent implements OnInit {
       .subscribe(res => {
         this.registros = res;
       });
+
+    this.getScreenHeight = window.innerHeight;
 
   }
 
@@ -153,6 +163,12 @@ export class ModalAplicarRegistroExtratoComponent implements OnInit {
     }
   }
 
+  public getHeight(hei: any) {
+    return {
+      maxHeight: (hei - 70) + 'px'
+    };
+  }
+
   public valorNegativo(valor: number): boolean {
     return valor < 0;
   }
@@ -162,12 +178,12 @@ export class ModalAplicarRegistroExtratoComponent implements OnInit {
   }
 
   public buscarContasPagar(): void {
-    this.httpClient.get(`${environment.financeiro_service_url}/conta/ativas?contaPagar=true&contaFixa=false`)
+    this.httpClient.get(`${environment.financeiro_service_url}/conta/ativas?contaPagar=true`)
       .subscribe(res => this.contas = res);
   }
 
   public buscarContasReceber(): void {
-    this.httpClient.get(`${environment.financeiro_service_url}/conta/ativas?contaPagar=false&contaFixa=false`)
+    this.httpClient.get(`${environment.financeiro_service_url}/conta/ativas?contaPagar=false`)
       .subscribe(res => this.contas = res);
   }
 
@@ -214,10 +230,10 @@ export class ModalAplicarRegistroExtratoComponent implements OnInit {
   public executar() {
     switch (this.formGroupTipoRegistro.controls.tipoRegistro.value) {
       case 1:
-        this.finalizarContaPagar(this.formGroupContaSelecionada.controls.contaSelecionada.value);
+        this.finalizarConta(this.formGroupContaSelecionada.controls.contaSelecionada.value);
         break;
       case 2:
-        this.finalizarContaReceber(this.formGroupContaSelecionada.controls.contaSelecionada.value);
+        this.finalizarConta(this.formGroupContaSelecionada.controls.contaSelecionada.value);
         break;
       case 3:
         const request = {
@@ -271,16 +287,27 @@ export class ModalAplicarRegistroExtratoComponent implements OnInit {
     this.novaMultiplaTransferenciaForm.controls.valor.setValue(this.data.valor);
   }
 
-  public finalizarContaReceber(idConta: number): void {
-    this.httpClient.patch(`${environment.financeiro_service_url}/conta/finalizar/${idConta}`, {})
-      .pipe(switchMap(() => this.httpClient.patch(`${environment.financeiro_service_url}/registro/${this.data.id}/transacao`, {})))
-      .subscribe(res => { });
+  public findContaById(idConta: any) {
+    return this.contas.find((item: any) => item.id == idConta);
   }
+  // public finalizarContaReceber(idConta: number): void {
+  //   const conta = this.findContaById(idConta);
+  //   this.httpClient.patch(`${environment.financeiro_service_url}/conta/finalizar/${idConta}`, {})
+  //     .pipe(switchMap(() => this.httpClient.patch(`${environment.financeiro_service_url}/registro/${this.data.id}/transacao/${idConta}/conta`, {})))
+  //     .subscribe(res => { });
+  // }
 
-  public finalizarContaPagar(idConta: number): void {
-    this.httpClient.patch(`${environment.financeiro_service_url}/conta/finalizar/${idConta}`, {})
-      .pipe(switchMap(() => this.httpClient.patch(`${environment.financeiro_service_url}/registro/${this.data.id}/transacao`, {})))
-      .subscribe(res => { });
+  public finalizarConta(idConta: number): void {
+    const conta = this.findContaById(idConta);
+    const requestRegistro = this.httpClient.patch(`${environment.financeiro_service_url}/registro/${this.data.id}/transacao/${idConta}/conta`, {});
+    if (conta.contaFixa) {
+      requestRegistro.
+        subscribe(() => { });
+    } else {
+      requestRegistro
+        .pipe(switchMap(() => this.httpClient.patch(`${environment.financeiro_service_url}/conta/finalizar/${idConta}`, {})))
+        .subscribe(() => { });
+    }
   }
 
   public buildEmitTransferencia(): any {

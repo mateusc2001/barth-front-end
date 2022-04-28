@@ -13,6 +13,8 @@ export class TabelaContasFixasComponent implements OnInit, OnChanges {
   public dataSource = new MatTableDataSource([]);
 
   @Input() contas: any[] = [];
+  @Input() loadingFixas: boolean = false;
+  
   @Input() pageOptions: any = PageOptionsMapper.pageOptionsBuilder({
     previousPageIndex: 0,
     pageIndex: 0,

@@ -11,6 +11,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms"
 import { ModalNovaContaReceberComponent } from '../contas-pagar/modais/modal-nova-conta-receber/modal-nova-conta-receber.component';
 import { ContasReceberRestService } from './services/contas-receber-rest.service';
 import { skip, skipWhile, switchMap, tap } from 'rxjs/operators';
+import { DetalheContaFixaComponent } from '../modais/detalhe-conta-fixa/detalhe-conta-fixa.component';
 
 @Component({
   selector: 'app-contas-receber',
@@ -20,13 +21,24 @@ import { skip, skipWhile, switchMap, tap } from 'rxjs/operators';
 export class ContasReceberComponent implements OnInit {
 
   displayedColumnsContasVariaveis: string[] = ['id', 'dataCriacao', 'descricao', 'valor', 'status', 'acoes'];
-  displayedColumnsContasFixas: string[] = ['id', 'dataCriacao', 'descricao', 'valor'];
+  displayedColumnsContasFixas: string[] = ['id', 'dataCriacao', 'descricao', 'valor', 'acoes'];
 
   dataSourceContasVariaveis = new MatTableDataSource<RegistroDataModel>([]);
   dataSourceContasFixas = new MatTableDataSource<RegistroDataModel>([]);
 
   pageOptionsContasFixas: any;
   pageOptionsContasVariaveis: any;
+
+  public loadingVariaveis: boolean = false;
+  public loadingFixas: boolean = false;
+
+  public atualizarLoadingVariaveis(status: boolean) {
+    this.loadingVariaveis = status;
+  }
+
+  public atualizarLoadingFixas(status: boolean) {
+    this.loadingFixas = status;
+  }
 
   openDialogNovaConta(): void {
     const dialogRef = this.dialog.open(ModalNovaContaReceberComponent, {
@@ -38,8 +50,18 @@ export class ContasReceberComponent implements OnInit {
       .subscribe((result: any) => this.registrarTransacao(result));
   }
 
+  openDialogDetalhamentoConta(item: any): void {
+    const dialogRef = this.dialog.open(DetalheContaFixaComponent, {
+      width: '650px',
+      data: item
+    });
+
+    dialogRef.afterClosed()
+      .pipe(skipWhile(res => !res))
+      .subscribe((result: any) => this.registrarTransacao(result));
+  }
+
   applyFilter(list: MatTableDataSource<RegistroDataModel>, event: Event) {
-    // console.log('asdasda');
     const filterValue = (event.target as HTMLInputElement).value;
     list.filter = filterValue.trim().toLowerCase();
   }
@@ -67,13 +89,17 @@ export class ContasReceberComponent implements OnInit {
   }
 
   public atualizarPlanos(): void {
+    this.atualizarLoadingFixas(true);
+    this.atualizarLoadingVariaveis(true);
     this.contasReceberRestService.getContasReceberVariaveis(this.pageOptionsContasVariaveis)
       .pipe(tap(res => {
+        this.atualizarLoadingVariaveis(false);
         this.dataSourceContasVariaveis.data = res.data;
         this.pageOptionsContasVariaveis.length = res.totalResults;
       }))
       .pipe(switchMap(() => this.contasReceberRestService.getContasReceberFixas(this.pageOptionsContasFixas)))
       .subscribe(res => {
+        this.atualizarLoadingFixas(false);
         this.dataSourceContasFixas.data = res.data;
         this.pageOptionsContasFixas.length = res.totalResults;
       });
