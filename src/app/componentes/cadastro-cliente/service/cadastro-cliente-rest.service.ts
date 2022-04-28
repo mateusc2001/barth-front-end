@@ -17,7 +17,7 @@ export class CadastroClienteRestService {
   }
 
   public editarUsuario(novoUsuario: NovoUsuarioRequest, userId: number): Observable<any> {
-    return this.httpClient.put<any>(`${environment}/usuario/${userId}`, novoUsuario);
+    return this.httpClient.put<any>(`${environment.financeiro_service_url}/usuario/${userId}`, novoUsuario);
   }
 
   public buscarUsuariosCadastrados(pageOptions: PageOptionsModel): Observable<any[]> {
